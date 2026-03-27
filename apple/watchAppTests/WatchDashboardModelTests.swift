@@ -23,6 +23,25 @@ final class WatchDashboardModelTests: XCTestCase {
         XCTAssertNil(model.errorMessage)
     }
 
+    func testRefreshPrioritizesHomeAndWorkFavorites() async {
+        let graph = DashboardGraphStub(
+            favorites: [
+                .fixture(id: "station-3", name: "Campus Río Ebro", distance: 350),
+                .fixture(id: "station-2", name: "Universidad", distance: 120),
+                .fixture(id: "station-1", name: "Plaza España", distance: 250)
+            ]
+        )
+        let model = WatchDashboardModel(graph: graph)
+
+        await model.refresh(
+            favoriteIds: ["station-1", "station-2", "station-3"],
+            homeStationId: "station-1",
+            workStationId: "station-3"
+        )
+
+        XCTAssertEqual(model.favoriteStations.map(\.id), ["station-1", "station-3", "station-2"])
+    }
+
     func testRefreshExposesErrors() async {
         let model = WatchDashboardModel(graph: DashboardGraphStub(error: DashboardGraphStub.StubError.offline))
 

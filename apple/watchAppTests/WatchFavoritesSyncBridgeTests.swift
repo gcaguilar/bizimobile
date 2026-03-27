@@ -25,22 +25,32 @@ final class WatchFavoritesSyncBridgeTests: XCTestCase {
     func testApplyStoresFavoriteIdsFromApplicationContext() {
         bridge.apply(context: [
             "favorite_ids": ["station-1", "station-2"],
+            "home_station_id": "station-1",
+            "work_station_id": "station-2",
         ])
 
         XCTAssertEqual(bridge.favoriteIds, Set(["station-1", "station-2"]))
+        XCTAssertEqual(bridge.homeStationId, "station-1")
+        XCTAssertEqual(bridge.workStationId, "station-2")
         XCTAssertEqual(
             Set(defaults.stringArray(forKey: WatchFavoritesSyncBridge.favoritesCacheKey) ?? []),
             Set(["station-1", "station-2"])
         )
+        XCTAssertEqual(defaults.string(forKey: WatchFavoritesSyncBridge.homeStationCacheKey), "station-1")
+        XCTAssertEqual(defaults.string(forKey: WatchFavoritesSyncBridge.workStationCacheKey), "station-2")
     }
 
     func testApplyWithoutFavoriteIdsPreservesCachedFavorites() {
         defaults.set(["station-7"], forKey: WatchFavoritesSyncBridge.favoritesCacheKey)
+        defaults.set("station-home", forKey: WatchFavoritesSyncBridge.homeStationCacheKey)
+        defaults.set("station-work", forKey: WatchFavoritesSyncBridge.workStationCacheKey)
         bridge = WatchFavoritesSyncBridge(defaults: defaults)
 
         bridge.apply(context: [:])
 
         XCTAssertEqual(bridge.favoriteIds, Set(["station-7"]))
+        XCTAssertEqual(bridge.homeStationId, "station-home")
+        XCTAssertEqual(bridge.workStationId, "station-work")
         XCTAssertEqual(
             Set(defaults.stringArray(forKey: WatchFavoritesSyncBridge.favoritesCacheKey) ?? []),
             Set(["station-7"])
