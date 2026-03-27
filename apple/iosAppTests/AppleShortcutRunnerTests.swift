@@ -60,6 +60,62 @@ final class AppleShortcutRunnerTests: XCTestCase {
         XCTAssertTrue(requests.first is MobileLaunchRequestFavorites)
     }
 
+    func testOpenFavoriteStationDialogFallsBackToFavoriteListAndStoresRequest() async {
+        let recorder = LaunchRequestRecorder()
+        let runner = AppleShortcutRunner(
+            graph: FakeAppleGraph(
+                favorites: [
+                    .fixture(id: "station-1", name: "Plaza España")
+                ]
+            ),
+            saveLaunchRequest: { request in
+                await recorder.append(request)
+            }
+        )
+
+        let dialog = await runner.openFavoriteStationDialog()
+        let requests = await recorder.requests()
+
+        XCTAssertEqual(dialog, "Abriendo tu estación favorita en Bici Radar.")
+        XCTAssertEqual((requests.last as? MobileLaunchRequestShowStation)?.stationId, "station-1")
+    }
+
+    func testOpenNearbyStationsDialogStoresHomeRequest() async {
+        let recorder = LaunchRequestRecorder()
+        let runner = AppleShortcutRunner(
+            graph: FakeAppleGraph(),
+            saveLaunchRequest: { request in
+                await recorder.append(request)
+            }
+        )
+
+        let dialog = await runner.openNearbyStationsDialog()
+        let requests = await recorder.requests()
+
+        XCTAssertEqual(dialog, "Abriendo estaciones cercanas en Bici Radar.")
+        XCTAssertTrue(requests.last is MobileLaunchRequestHome)
+    }
+
+    func testMonitorFavoriteStationDialogStoresMonitorRequest() async {
+        let recorder = LaunchRequestRecorder()
+        let runner = AppleShortcutRunner(
+            graph: FakeAppleGraph(
+                favorites: [
+                    .fixture(id: "station-2", name: "Universidad")
+                ]
+            ),
+            saveLaunchRequest: { request in
+                await recorder.append(request)
+            }
+        )
+
+        let dialog = await runner.monitorFavoriteStationDialog()
+        let requests = await recorder.requests()
+
+        XCTAssertEqual(dialog, "Preparando la monitorización de tu estación favorita en Bici Radar.")
+        XCTAssertEqual((requests.last as? MobileLaunchRequestMonitorStation)?.stationId, "station-2")
+    }
+
     func testStationStatusDialogReportsStationByIdIdentifier() async {
         let runner = AppleShortcutRunner(
             graph: FakeAppleGraph(
