@@ -129,7 +129,7 @@ private struct FavoriteStationWidgetView: View {
                 }
                 .padding(16)
             } else {
-                fallbackView(title: "BiciRadar", message: fallbackMessage(for: entry))
+                fallbackView(title: "BiciRadar", message: fallbackMessage(for: entry, kind: .favorite))
                     .padding(16)
             }
         }
@@ -156,7 +156,7 @@ private struct NearbyStationsWidgetView: View {
         ZStack {
             LinearGradient(colors: [Color(red: 0.95, green: 0.97, blue: 1.0), Color.white], startPoint: .topLeading, endPoint: .bottomTrailing)
             if entry.nearbyStations.isEmpty {
-                fallbackView(title: "Cercanas", message: fallbackMessage(for: entry))
+                fallbackView(title: "Cercanas", message: fallbackMessage(for: entry, kind: .nearby))
                     .padding(16)
             } else {
                 VStack(alignment: .leading, spacing: 10) {
@@ -209,6 +209,7 @@ private struct BikesAccessoryView: View {
                     .font(.title2.bold())
             }
         }
+        .widgetURL(entry.favoriteStation.map { URL(string: "biciradar://station/\($0.id)")! } ?? URL(string: "biciradar://favorites"))
     }
 }
 
@@ -234,6 +235,7 @@ private struct DocksAccessoryView: View {
                     .font(.title2.bold())
             }
         }
+        .widgetURL(entry.favoriteStation.map { URL(string: "biciradar://station/\($0.id)")! } ?? URL(string: "biciradar://favorites"))
     }
 }
 
@@ -254,6 +256,7 @@ private struct StationStatusAccessoryView: View {
                     .foregroundStyle(entry.favoriteStation.map { statusColor($0.statusLevel) } ?? .secondary)
             }
         }
+        .widgetURL(entry.favoriteStation.map { URL(string: "biciradar://station/\($0.id)")! } ?? URL(string: "biciradar://favorites"))
     }
 }
 
@@ -282,6 +285,7 @@ struct BiziMonitoringLiveActivityWidget: Widget {
             .padding(16)
             .activityBackgroundTint(Color(red: 0.95, green: 0.97, blue: 1.0))
             .activitySystemActionForegroundColor(Color(red: 0.11, green: 0.45, blue: 0.74))
+            .widgetURL(URL(string: "biciradar://monitor/\(context.attributes.stationId)"))
         } dynamicIsland: { context in
             DynamicIsland {
                 DynamicIslandExpandedRegion(.leading) {
@@ -309,14 +313,23 @@ struct BiziMonitoringLiveActivityWidget: Widget {
             } minimal: {
                 Text("\(context.state.bikesAvailable)")
             }
+            .widgetURL(URL(string: "biciradar://monitor/\(context.attributes.stationId)"))
         }
     }
 }
 #endif
 
-private func fallbackMessage(for entry: SurfaceEntry) -> String {
+private enum SurfaceFallbackKind {
+    case favorite
+    case nearby
+}
+
+private func fallbackMessage(for entry: SurfaceEntry, kind: SurfaceFallbackKind) -> String {
     guard let state = entry.state else { return "Abre la app para actualizar" }
-    if !state.hasFavoriteStation {
+    if kind == .nearby, !state.hasLocationPermission {
+        return "Sin permiso de ubicación"
+    }
+    if kind == .favorite, !state.hasFavoriteStation {
         return "Configura una estación favorita"
     }
     if !state.isDataFresh {
