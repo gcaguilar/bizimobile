@@ -115,7 +115,7 @@
     <string name="guideStationStatusExampleHome">Cómo está casa con Bici Radar</string>
     <string name="guideStationStatusExampleHomeBikes">Cuántas bicis hay en casa con Bici Radar</string>
     <string name="guideStationStatusExampleStationSlots">Cuántos huecos hay en la estación 48 con Bici Radar</string>
-    <string name="guideFavoritesDescription">Abre directamente tu lista de favoritas, con Casa y Trabajo incluidos cuando estén configurados.</string>
+    <string name="guideFavoritesDescription">Abre directamente tu lista de favoritas. Casa y Trabajo aparecen aparte cuando están configurados.</string>
     <string name="guideFavoritesExampleOpen">Abre mis favoritas con Bici Radar</string>
     <string name="guideFavoritesExampleWork">Cómo está trabajo con Bici Radar</string>
     <string name="guideRouteToStation">Ruta a una estación</string>

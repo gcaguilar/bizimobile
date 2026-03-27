@@ -7,10 +7,13 @@ final class WatchFavoritesSyncBridge: NSObject, ObservableObject, @preconcurrenc
     static let favoritesCacheKey = "bizizaragoza.watch.favorite_ids"
     static let homeStationCacheKey = "bizizaragoza.watch.home_station_id"
     static let workStationCacheKey = "bizizaragoza.watch.work_station_id"
+    static let monitoringSessionCacheKey = "bizizaragoza.watch.monitoring_session"
+    static let monitoringSessionContextKey = "monitoring_session"
 
     @Published private(set) var favoriteIds: Set<String> = []
     @Published private(set) var homeStationId: String?
     @Published private(set) var workStationId: String?
+    @Published private(set) var monitoringSession: WatchConnectivityMonitoringSession?
     private let defaults: UserDefaults
 
     init(defaults: UserDefaults = .standard) {
@@ -18,6 +21,8 @@ final class WatchFavoritesSyncBridge: NSObject, ObservableObject, @preconcurrenc
         self.favoriteIds = Set(defaults.stringArray(forKey: Self.favoritesCacheKey) ?? [])
         self.homeStationId = defaults.string(forKey: Self.homeStationCacheKey)
         self.workStationId = defaults.string(forKey: Self.workStationCacheKey)
+        self.monitoringSession = defaults.data(forKey: Self.monitoringSessionCacheKey)
+            .flatMap { try? JSONDecoder().decode(WatchConnectivityMonitoringSession.self, from: $0) }
         super.init()
     }
 
@@ -50,11 +55,16 @@ final class WatchFavoritesSyncBridge: NSObject, ObservableObject, @preconcurrenc
         activationDidCompleteWith activationState: WCSessionActivationState,
         error: Error?
     ) {
-        apply(context: session.receivedApplicationContext)
+        let context = session.receivedApplicationContext
+        Task { @MainActor in
+            self.apply(context: context)
+        }
     }
 
     func session(_ session: WCSession, didReceiveApplicationContext applicationContext: [String: Any]) {
-        apply(context: applicationContext)
+        Task { @MainActor in
+            self.apply(context: applicationContext)
+        }
     }
 
     #if os(iOS)
@@ -69,13 +79,74 @@ final class WatchFavoritesSyncBridge: NSObject, ObservableObject, @preconcurrenc
             favoriteIds = Set(ids)
             defaults.set(ids, forKey: Self.favoritesCacheKey)
         }
-        if let homeStationId = context["home_station_id"] as? String, !homeStationId.isEmpty {
-            self.homeStationId = homeStationId
-            defaults.set(homeStationId, forKey: Self.homeStationCacheKey)
+        if let homeStationId = context["home_station_id"] as? String {
+            let trimmed = homeStationId.trimmingCharacters(in: .whitespacesAndNewlines)
+            if trimmed.isEmpty {
+                self.homeStationId = nil
+                defaults.removeObject(forKey: Self.homeStationCacheKey)
+            } else {
+                self.homeStationId = trimmed
+                defaults.set(trimmed, forKey: Self.homeStationCacheKey)
+            }
         }
-        if let workStationId = context["work_station_id"] as? String, !workStationId.isEmpty {
-            self.workStationId = workStationId
-            defaults.set(workStationId, forKey: Self.workStationCacheKey)
+        if let workStationId = context["work_station_id"] as? String {
+            let trimmed = workStationId.trimmingCharacters(in: .whitespacesAndNewlines)
+            if trimmed.isEmpty {
+                self.workStationId = nil
+                defaults.removeObject(forKey: Self.workStationCacheKey)
+            } else {
+                self.workStationId = trimmed
+                defaults.set(trimmed, forKey: Self.workStationCacheKey)
+            }
+        }
+        if let monitoringData = context[Self.monitoringSessionContextKey] as? Data,
+           let monitoringSession = try? JSONDecoder().decode(WatchConnectivityMonitoringSession.self, from: monitoringData) {
+            self.monitoringSession = monitoringSession
+            defaults.set(monitoringData, forKey: Self.monitoringSessionCacheKey)
+        } else if context.keys.contains(Self.monitoringSessionContextKey) || !context.isEmpty {
+            monitoringSession = nil
+            defaults.removeObject(forKey: Self.monitoringSessionCacheKey)
         }
     }
+}
+
+struct WatchConnectivityMonitoringSession: Codable, Hashable {
+    let stationId: String
+    let stationName: String
+    let bikesAvailable: Int
+    let docksAvailable: Int
+    let statusText: String
+    let statusLevel: String
+    let expiresAtEpoch: Int64
+    let lastUpdatedEpoch: Int64
+    let isActive: Bool
+    let alternativeStationId: String?
+    let alternativeStationName: String?
+    let alternativeDistanceMeters: Int?
+
+    var remainingMinutesText: String {
+        let remainingSeconds = max(Int((expiresAtEpoch - Int64(Date().timeIntervalSince1970 * 1000)) / 1000), 0)
+        if remainingSeconds < 60 {
+            return "Ahora"
+        }
+        let minutes = remainingSeconds / 60
+        return minutes == 1 ? "1 min" : "\(minutes) min"
+    }
+
+    var color: WatchMonitoringAccent {
+        switch statusLevel {
+        case "Empty", "Full":
+            return .error
+        case "Low":
+            return .warning
+        default:
+            return .good
+        }
+    }
+}
+
+enum WatchMonitoringAccent {
+    case good
+    case warning
+    case error
 }

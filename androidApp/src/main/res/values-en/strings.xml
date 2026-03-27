@@ -9,4 +9,11 @@
     <string name="shortcut_station_bikes">Bikes at station</string>
     <string name="shortcut_station_slots">Slots at station</string>
     <string name="shortcut_show_station">Find station</string>
+    <string name="widget_commute_title">Home and work</string>
+    <string name="widget_commute_description">Quick access to your home and work stations</string>
+    <string name="widget_saved_place_home">Home</string>
+    <string name="widget_saved_place_work">Work</string>
+    <string name="widget_saved_place_missing_title">Not set</string>
+    <string name="widget_configure_saved_places">Choose your stations</string>
+    <string name="widget_open_app_to_refresh">Open the app to refresh</string>
 </resources>

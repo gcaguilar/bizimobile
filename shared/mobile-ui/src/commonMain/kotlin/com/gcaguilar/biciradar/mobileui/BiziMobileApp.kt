@@ -440,7 +440,7 @@ fun BiziMobileApp(
 
   LaunchedEffect(graph) {
     favoritesBootstrapped = false
-    runCatching { favoritesRepository.bootstrap() }
+    runCatching { favoritesRepository.syncFromPeer() }
     favoritesBootstrapped = true
   }
 
@@ -463,9 +463,12 @@ fun BiziMobileApp(
     minimumSplashElapsed = true
   }
 
-  LaunchedEffect(graph, refreshKey) {
-    stationsRepository.loadIfNeeded()
-    initialLoadAttemptFinished = true
+  LaunchedEffect(graph, refreshKey, settingsBootstrapped, favoritesBootstrapped) {
+    if (settingsBootstrapped && favoritesBootstrapped) {
+      runCatching { favoritesRepository.syncFromPeer() }
+      stationsRepository.forceRefresh()
+      initialLoadAttemptFinished = true
+    }
   }
 
   LaunchedEffect(
@@ -581,6 +584,7 @@ fun BiziMobileApp(
       is MobileLaunchRequest.SelectCity -> {
         val city = City.fromId(request.cityId) ?: return@LaunchedEffect
         settingsRepository.setSelectedCity(city)
+        stationsRepository.forceRefresh()
         navController.navigate(Screen.Nearby) { launchSingleTop = true }
         appState.pendingLaunchRequest = null
       }
@@ -1675,7 +1679,7 @@ private fun FavoritesScreen(
       }
     }
     if (stations.isNotEmpty()) {
-      items(stations, key = { it.id }) { station ->
+      items(stations.distinctBy { it.id }, key = { it.id }) { station ->
         DismissibleFavoriteStationRow(
           mobilePlatform = mobilePlatform,
           station = station,

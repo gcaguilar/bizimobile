@@ -115,7 +115,7 @@
     <string name="guideStationStatusExampleHome">Nola dago etxea Bici Radarrekin</string>
     <string name="guideStationStatusExampleHomeBikes">Zenbat bizikleta daude etxean Bici Radarrekin</string>
     <string name="guideStationStatusExampleStationSlots">Zenbat leku daude 48 geltokian Bici Radarrekin</string>
-    <string name="guideFavoritesDescription">Ireki zuzenean zure gogokoen zerrenda, Etxea eta Lana barne konfiguratuta daudenean.</string>
+    <string name="guideFavoritesDescription">Ireki zuzenean zure gogokoen zerrenda. Etxea eta Lana aparte agertzen dira konfiguratuta daudenean.</string>
     <string name="guideFavoritesExampleOpen">Ireki nire gogokoak Bici Radarrekin</string>
     <string name="guideFavoritesExampleWork">Nola dago lana Bici Radarrekin</string>
     <string name="guideRouteToStation">Geltoki baterako ibilbidea</string>

@@ -115,7 +115,7 @@
     <string name="guideStationStatusExampleHome">Com està casa amb Bici Radar</string>
     <string name="guideStationStatusExampleHomeBikes">Quantes bicis hi ha a casa amb Bici Radar</string>
     <string name="guideStationStatusExampleStationSlots">Quants ancoratges hi ha a l\'estació 48 amb Bici Radar</string>
-    <string name="guideFavoritesDescription">Obre directament la teva llista de favorites, amb Casa i Feina incloses quan estiguin configurades.</string>
+    <string name="guideFavoritesDescription">Obre directament la teva llista de favorites. Casa i Feina apareixen a part quan estan configurades.</string>
     <string name="guideFavoritesExampleOpen">Obre les meves favorites amb Bici Radar</string>
     <string name="guideFavoritesExampleWork">Com està feina amb Bici Radar</string>
     <string name="guideRouteToStation">Ruta a una estació</string>
