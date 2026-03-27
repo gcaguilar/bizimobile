@@ -14,6 +14,8 @@
 		018F7A1C4B6240B7A2F90041 /* BiziSurfaceStore.swift in Sources */ = {isa = PBXBuildFile; fileRef = 018F7A1C4B6240B7A2F90042 /* BiziSurfaceStore.swift */; };
 		018F7A1C4B6240B7A2F90051 /* BiziMonitoringActivityAttributes.swift in Sources */ = {isa = PBXBuildFile; fileRef = 018F7A1C4B6240B7A2F90052 /* BiziMonitoringActivityAttributes.swift */; };
 		018F7A1C4B6240B7A2F90061 /* ActivityKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 018F7A1C4B6240B7A2F90062 /* ActivityKit.framework */; };
+		019B4E1A4C6240B7A2F90111 /* AppleDeepLinkParserTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 019B4E1A4C6240B7A2F90112 /* AppleDeepLinkParserTests.swift */; };
+		019B4E1A4C6240B7A2F90121 /* WatchSurfaceFormattingTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 019B4E1A4C6240B7A2F90122 /* WatchSurfaceFormattingTests.swift */; };
 		07904E4A8C59A86E402C66E2 /* AppleLaunchRequestStore.swift in Sources */ = {isa = PBXBuildFile; fileRef = AAD96FDD7F2BF8705326AD75 /* AppleLaunchRequestStore.swift */; };
 		098CED8AD0CF8061D6B25219 /* FavoritesSyncBridge.swift in Sources */ = {isa = PBXBuildFile; fileRef = DA3E676BAE30B7E1F70BA1B1 /* FavoritesSyncBridge.swift */; };
 		0CBB99FA68E0C68FA05394E5 /* BiziShortcuts.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4E55A5E362AEDF07EDB6977A /* BiziShortcuts.swift */; };
@@ -104,6 +106,8 @@
 		018F7A1C4B6240B7A2F90042 /* BiziSurfaceStore.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BiziSurfaceStore.swift; sourceTree = "<group>"; };
 		018F7A1C4B6240B7A2F90052 /* BiziMonitoringActivityAttributes.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BiziMonitoringActivityAttributes.swift; sourceTree = "<group>"; };
 		018F7A1C4B6240B7A2F90062 /* ActivityKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = ActivityKit.framework; path = System/Library/Frameworks/ActivityKit.framework; sourceTree = SDKROOT; };
+		019B4E1A4C6240B7A2F90112 /* AppleDeepLinkParserTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppleDeepLinkParserTests.swift; sourceTree = "<group>"; };
+		019B4E1A4C6240B7A2F90122 /* WatchSurfaceFormattingTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WatchSurfaceFormattingTests.swift; sourceTree = "<group>"; };
 		05F6FE2989AAE261F81A4893 /* SwiftUI.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = SwiftUI.framework; path = System/Library/Frameworks/SwiftUI.framework; sourceTree = SDKROOT; };
 		13E826AABAA8B415FF264874 /* BiziAppleGraph.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BiziAppleGraph.swift; sourceTree = "<group>"; };
 		1598AA72441D647040F04BB8 /* XCTest.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = XCTest.framework; path = System/Library/Frameworks/XCTest.framework; sourceTree = SDKROOT; };
@@ -209,6 +213,7 @@
 			children = (
 				5FA81CAFF45F72A3F9E798C6 /* WatchDashboardModelTests.swift */,
 				31C35FA87704051EDF4F0EE7 /* WatchFavoritesSyncBridgeTests.swift */,
+				019B4E1A4C6240B7A2F90122 /* WatchSurfaceFormattingTests.swift */,
 				BF2A897D023496E147F3B0D6 /* WatchShortcutRunnerTests.swift */,
 			);
 			path = watchAppTests;
@@ -326,6 +331,7 @@
 		E9B6B1AA6C9463A2FFF85530 /* iosAppTests */ = {
 			isa = PBXGroup;
 			children = (
+				019B4E1A4C6240B7A2F90112 /* AppleDeepLinkParserTests.swift */,
 				D28D316D279D47D028277D85 /* AppleLaunchRequestStoreTests.swift */,
 				B01DBA8AABE43176A21EC702 /* AppleShortcutRunnerTests.swift */,
 				A385586E895A4F3E20821917 /* FavoritesSyncBridgeTests.swift */,
@@ -671,6 +677,7 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				019B4E1A4C6240B7A2F90111 /* AppleDeepLinkParserTests.swift in Sources */,
 				E549E2DA4C6AB6C75B22A6DF /* AppleLaunchRequestStoreTests.swift in Sources */,
 				A001DF2D53BACE1211D784CE /* AppleShortcutRunnerTests.swift in Sources */,
 				1B59A4F9B0439B18C0014937 /* FavoritesSyncBridgeTests.swift in Sources */,
@@ -694,6 +701,7 @@
 				14AB29D4AA54154DC9CB0606 /* WatchDashboardModelTests.swift in Sources */,
 				439263C7FAB0E4A937F34FE4 /* WatchFavoritesSyncBridge.swift in Sources */,
 				EE2B41863B39EDD823677BA9 /* WatchFavoritesSyncBridgeTests.swift in Sources */,
+				019B4E1A4C6240B7A2F90121 /* WatchSurfaceFormattingTests.swift in Sources */,
 				445515229FD1022684AC7831 /* WatchShortcutRunner.swift in Sources */,
 				C54E4CB78645F4F4511915E2 /* WatchShortcutRunnerTests.swift in Sources */,
 			);
