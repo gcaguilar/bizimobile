@@ -163,6 +163,14 @@
     <string name="changelogWatchRefreshDescription">Watch apps now have a clearer interface, highlighted metrics, and quicker actions for your stations.</string>
     <string name="changelogStationLookupFixTitle">More reliable station lookup</string>
     <string name="changelogStationLookupFixDescription">Fixed station-number search so it also works when you type leading zeros.</string>
+    <string name="changelogUiImprovementsTitle">UI improvements</string>
+    <string name="changelogUiImprovementsDescription">Refined screens, cards, and status states so everyday navigation feels clearer and smoother.</string>
+    <string name="changelogPerformanceImprovementsTitle">Performance improvements</string>
+    <string name="changelogPerformanceImprovementsDescription">Reduced waiting times and improved overall responsiveness when loading stations and moving around the app.</string>
+    <string name="changelogLocalCacheTitle">Smarter local cache</string>
+    <string name="changelogLocalCacheDescription">Station data is now cached temporarily on your device to reduce network usage and open faster.</string>
+    <string name="changelogDataSourcesTitle">More public bike networks</string>
+    <string name="changelogDataSourcesDescription">Added new public data sources and more supported bike sharing systems.</string>
     <string name="destinationPlaceholder">Type an address or place</string>
     <string name="clear">Clear</string>
     <string name="cancelMap">Cancel map</string>

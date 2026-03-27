@@ -163,6 +163,14 @@
     <string name="changelogWatchRefreshDescription">Erlojuetako aplikazioek interfaze argiagoa, neurri nabarmenduak eta zure geltokientzako ekintza azkarrak dituzte orain.</string>
     <string name="changelogStationLookupFixTitle">Geltokien bilaketa fidagarriagoa</string>
     <string name="changelogStationLookupFixDescription">Zenbakizko bilaketa zuzendu da, hasierako zeroak idatzita ere funtziona dezan.</string>
+    <string name="changelogUiImprovementsTitle">Interfaze hobekuntzak</string>
+    <string name="changelogUiImprovementsDescription">Pantailak, txartelak eta egoerak findu ditugu eguneroko nabigazioa argiagoa eta arinagoa izan dadin.</string>
+    <string name="changelogPerformanceImprovementsTitle">Errendimendu hobea</string>
+    <string name="changelogPerformanceImprovementsDescription">Itxaronaldiak murriztu eta erantzun orokorra hobetu dugu geltokiak kargatzean eta aplikazioan mugitzean.</string>
+    <string name="changelogLocalCacheTitle">Tokiko cache adimenduna</string>
+    <string name="changelogLocalCacheDescription">Orain geltokien datuak aldi baterako gordetzen dira zure gailuan sare gutxiago erabiltzeko eta azkarrago irekitzeko.</string>
+    <string name="changelogDataSourcesTitle">Bizikleta publikoaren sare gehiago</string>
+    <string name="changelogDataSourcesDescription">Datu iturri publiko berriak eta bizikleta partekatuaren sistema bateragarri gehiago gehitu ditugu.</string>
     <string name="destinationPlaceholder">Idatzi helbide edo leku bat</string>
     <string name="clear">Garbitu</string>
     <string name="cancelMap">Utzi mapa</string>

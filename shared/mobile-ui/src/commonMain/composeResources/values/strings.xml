@@ -163,6 +163,14 @@
     <string name="changelogWatchRefreshDescription">Las apps de reloj estrenan interfaz más clara, métricas destacadas y acciones rápidas para tus estaciones.</string>
     <string name="changelogStationLookupFixTitle">Búsqueda de estaciones más fiable</string>
     <string name="changelogStationLookupFixDescription">Corregida la búsqueda por número para que funcione incluso si escribes ceros iniciales.</string>
+    <string name="changelogUiImprovementsTitle">Mejoras de interfaz</string>
+    <string name="changelogUiImprovementsDescription">Refinamos pantallas, tarjetas y estados para que la navegación diaria sea más clara y fluida.</string>
+    <string name="changelogPerformanceImprovementsTitle">Más rendimiento</string>
+    <string name="changelogPerformanceImprovementsDescription">Reducimos esperas y mejoramos la respuesta general al cargar estaciones y moverte por la app.</string>
+    <string name="changelogLocalCacheTitle">Caché local inteligente</string>
+    <string name="changelogLocalCacheDescription">Ahora guardamos temporalmente los datos de estaciones en tu dispositivo para gastar menos red y abrir más rápido.</string>
+    <string name="changelogDataSourcesTitle">Más redes de bici pública</string>
+    <string name="changelogDataSourcesDescription">Añadimos nuevas fuentes públicas de datos y más sistemas de bicicleta compartida compatibles.</string>
     <string name="destinationPlaceholder">Escribe una dirección o lugar</string>
     <string name="clear">Borrar</string>
     <string name="cancelMap">Cancelar mapa</string>
