@@ -1078,7 +1078,7 @@
 				SDKROOT = watchos;
 				SKIP_INSTALL = YES;
 				TARGETED_DEVICE_FAMILY = 4;
-				TEST_HOST = "$(BUILT_PRODUCTS_DIR)/BiciRadarWatch.app/BiciRadarWatch";
+				TEST_HOST = "$(BUILT_PRODUCTS_DIR)/BiciRadar Watch.app/BiciRadar Watch";
 				WATCHOS_DEPLOYMENT_TARGET = 9.0;
 			};
 			name = Debug;
@@ -1256,7 +1256,7 @@
 				OTHER_LDFLAGS = "$(inherited) -ObjC -framework BiziMobileUi -lsqlite3";
 				PRODUCT_BUNDLE_IDENTIFIER = com.gcaguilar.biciradar.ios;
 				PRODUCT_NAME = BiciRadar;
-				PROVISIONING_PROFILE_SPECIFIER = "48baa5e8-be01-4ff1-b1a3-7345ffba5c67";
+				PROVISIONING_PROFILE_SPECIFIER = BiciRadarProfile;
 				SDKROOT = iphoneos;
 				SUPPORTS_MAC_DESIGNED_FOR_IPHONE_IPAD = NO;
 				TARGETED_DEVICE_FAMILY = "1,2";
@@ -1293,7 +1293,7 @@
 				OTHER_LDFLAGS = "$(inherited) -ObjC -framework BiziMobileUi -lsqlite3";
 				PRODUCT_BUNDLE_IDENTIFIER = com.gcaguilar.biciradar.ios;
 				PRODUCT_NAME = BiciRadar;
-				PROVISIONING_PROFILE_SPECIFIER = "48baa5e8-be01-4ff1-b1a3-7345ffba5c67";
+				PROVISIONING_PROFILE_SPECIFIER = BiciRadarProfile;
 				SDKROOT = iphoneos;
 				SUPPORTS_MAC_DESIGNED_FOR_IPHONE_IPAD = NO;
 				TARGETED_DEVICE_FAMILY = "1,2";
@@ -1436,7 +1436,7 @@
 				SDKROOT = watchos;
 				SKIP_INSTALL = YES;
 				TARGETED_DEVICE_FAMILY = 4;
-				TEST_HOST = "$(BUILT_PRODUCTS_DIR)/BiciRadarWatch.app/BiciRadarWatch";
+				TEST_HOST = "$(BUILT_PRODUCTS_DIR)/BiciRadar Watch.app/BiciRadar Watch";
 				WATCHOS_DEPLOYMENT_TARGET = 9.0;
 			};
 			name = Release;

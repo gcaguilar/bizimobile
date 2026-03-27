@@ -130,7 +130,7 @@ targets:
         CODE_SIGN_STYLE: Manual
         DEVELOPMENT_TEAM: B87AWPVZWB
         CODE_SIGN_IDENTITY: "Apple Distribution"
-        PROVISIONING_PROFILE_SPECIFIER: "48baa5e8-be01-4ff1-b1a3-7345ffba5c67"
+        PROVISIONING_PROFILE_SPECIFIER: "BiciRadarProfile"
         EXCLUDED_ARCHS[sdk=iphonesimulator*]: x86_64
         ASSETCATALOG_COMPILER_APPICON_NAME: AppIcon
         FRAMEWORK_SEARCH_PATHS[config=Debug]:
@@ -372,6 +372,7 @@ targets:
           fi
     settings:
       base:
+        BUNDLE_LOADER: "$(TEST_HOST)"
         CODE_SIGN_STYLE: Automatic
         DEVELOPMENT_TEAM: ""
         EXCLUDED_ARCHS[sdk=watchsimulator*]: x86_64
@@ -385,6 +386,7 @@ targets:
         OTHER_LDFLAGS: $(inherited) -framework BiziSharedCore
         PRODUCT_BUNDLE_IDENTIFIER: com.gcaguilar.biciradar.ios.watch.tests
         PRODUCT_NAME: BiciRadar Watch Tests
+        TEST_HOST: "$(BUILT_PRODUCTS_DIR)/BiciRadar Watch.app/BiciRadar Watch"
 
 schemes:
   BiciRadar:
