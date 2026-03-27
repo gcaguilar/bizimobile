@@ -92,6 +92,13 @@
 			remoteGlobalIDString = FA2835E0E7A6C8C97716E21C;
 			remoteInfo = BiciRadarWidgets;
 		};
+		374F991EC3F0678879C429F8 /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = E6248835368360C0A00F1112 /* Project object */;
+			proxyType = 1;
+			remoteGlobalIDString = 54F2A93AE922E3FF791E5616;
+			remoteInfo = BiciRadarWatch;
+		};
 		94602171D8264D5D4B726DE9 /* PBXContainerItemProxy */ = {
 			isa = PBXContainerItemProxy;
 			containerPortal = E6248835368360C0A00F1112 /* Project object */;
@@ -554,7 +561,7 @@
 			buildRules = (
 			);
 			dependencies = (
-				1F3A4B2C9D8E7F60A1B2C3D4 /* PBXTargetDependency */,
+				C997021EEB55B9C591A449BF /* PBXTargetDependency */,
 			);
 			name = BiciRadarWatchTests;
 			packageProductDependencies = (
@@ -645,15 +652,15 @@
 					};
 					C47ED97A91E7B3CA7DC28E1F = {
 						DevelopmentTeam = B87AWPVZWB;
-						ProvisioningStyle = Automatic;
+						ProvisioningStyle = Manual;
 					};
 					F3B21E33A225BBA291CEF6B6 = {
 						DevelopmentTeam = "";
 						ProvisioningStyle = Automatic;
 					};
 					FA2835E0E7A6C8C97716E21C = {
-						DevelopmentTeam = "";
-						ProvisioningStyle = Automatic;
+						DevelopmentTeam = B87AWPVZWB;
+						ProvisioningStyle = Manual;
 					};
 				};
 			};
@@ -942,10 +949,10 @@
 			target = BCF1240E3C3258E3C8152F54 /* BiciRadar */;
 			targetProxy = EA4E616C97C049CDA2945A68 /* PBXContainerItemProxy */;
 		};
-		1F3A4B2C9D8E7F60A1B2C3D4 /* PBXTargetDependency */ = {
+		C997021EEB55B9C591A449BF /* PBXTargetDependency */ = {
 			isa = PBXTargetDependency;
 			target = 54F2A93AE922E3FF791E5616 /* BiciRadarWatch */;
-			targetProxy = AFB88228C7E77ED0EEB964F6 /* PBXContainerItemProxy */;
+			targetProxy = 374F991EC3F0678879C429F8 /* PBXContainerItemProxy */;
 		};
 /* End PBXTargetDependency section */
 
@@ -984,11 +991,14 @@
 				CODE_SIGN_STYLE = Automatic;
 				DEVELOPMENT_TEAM = "";
 				"EXCLUDED_ARCHS[sdk=iphonesimulator*]" = x86_64;
-				FRAMEWORK_SEARCH_PATHS = (
+				"FRAMEWORK_SEARCH_PATHS[config=Debug]" = (
 					"$(inherited)",
 					"$(SRCROOT)/../shared/mobile-ui/build/bin/iosSimulatorArm64/debugFramework",
-					"$(SRCROOT)/../shared/mobile-ui/build/bin/iosSimulatorArm64/releaseFramework",
 					"$(SRCROOT)/../shared/mobile-ui/build/bin/iosArm64/debugFramework",
+				);
+				"FRAMEWORK_SEARCH_PATHS[config=Release]" = (
+					"$(inherited)",
+					"$(SRCROOT)/../shared/mobile-ui/build/bin/iosSimulatorArm64/releaseFramework",
 					"$(SRCROOT)/../shared/mobile-ui/build/bin/iosArm64/releaseFramework",
 				);
 				GENERATE_INFOPLIST_FILE = YES;
@@ -1016,9 +1026,12 @@
 				CODE_SIGN_STYLE = Manual;
 				DEVELOPMENT_TEAM = B87AWPVZWB;
 				"EXCLUDED_ARCHS[sdk=watchsimulator*]" = x86_64;
-				FRAMEWORK_SEARCH_PATHS = (
+				"FRAMEWORK_SEARCH_PATHS[config=Debug]" = (
 					"$(inherited)",
 					"$(SRCROOT)/../shared/core/build/bin/watchosCurrent/debugFramework",
+				);
+				"FRAMEWORK_SEARCH_PATHS[config=Release]" = (
+					"$(inherited)",
 					"$(SRCROOT)/../shared/core/build/bin/watchosCurrent/releaseFramework",
 				);
 				GENERATE_INFOPLIST_FILE = YES;
@@ -1045,9 +1058,12 @@
 				CODE_SIGN_STYLE = Automatic;
 				DEVELOPMENT_TEAM = "";
 				"EXCLUDED_ARCHS[sdk=watchsimulator*]" = x86_64;
-				FRAMEWORK_SEARCH_PATHS = (
+				"FRAMEWORK_SEARCH_PATHS[config=Debug]" = (
 					"$(inherited)",
 					"$(SRCROOT)/../shared/core/build/bin/watchosCurrent/debugFramework",
+				);
+				"FRAMEWORK_SEARCH_PATHS[config=Release]" = (
+					"$(inherited)",
 					"$(SRCROOT)/../shared/core/build/bin/watchosCurrent/releaseFramework",
 				);
 				GENERATE_INFOPLIST_FILE = YES;
@@ -1062,6 +1078,7 @@
 				SDKROOT = watchos;
 				SKIP_INSTALL = YES;
 				TARGETED_DEVICE_FAMILY = 4;
+				TEST_HOST = "$(BUILT_PRODUCTS_DIR)/BiciRadarWatch.app/BiciRadarWatch";
 				WATCHOS_DEPLOYMENT_TARGET = 9.0;
 			};
 			name = Debug;
@@ -1073,11 +1090,14 @@
 				CODE_SIGN_STYLE = Automatic;
 				DEVELOPMENT_TEAM = "";
 				"EXCLUDED_ARCHS[sdk=iphonesimulator*]" = x86_64;
-				FRAMEWORK_SEARCH_PATHS = (
+				"FRAMEWORK_SEARCH_PATHS[config=Debug]" = (
 					"$(inherited)",
 					"$(SRCROOT)/../shared/mobile-ui/build/bin/iosSimulatorArm64/debugFramework",
-					"$(SRCROOT)/../shared/mobile-ui/build/bin/iosSimulatorArm64/releaseFramework",
 					"$(SRCROOT)/../shared/mobile-ui/build/bin/iosArm64/debugFramework",
+				);
+				"FRAMEWORK_SEARCH_PATHS[config=Release]" = (
+					"$(inherited)",
+					"$(SRCROOT)/../shared/mobile-ui/build/bin/iosSimulatorArm64/releaseFramework",
 					"$(SRCROOT)/../shared/mobile-ui/build/bin/iosArm64/releaseFramework",
 				);
 				GENERATE_INFOPLIST_FILE = YES;
@@ -1097,24 +1117,26 @@
 		};
 		5D10BA52B3B55314619FE443 /* Debug */ = {
 			isa = XCBuildConfiguration;
-			buildSettings = {
-				CODE_SIGN_ENTITLEMENTS = iosWidgets/BiciRadarWidgets.entitlements;
-				CODE_SIGN_STYLE = Automatic;
-				DEVELOPMENT_TEAM = "";
-				"EXCLUDED_ARCHS[sdk=iphonesimulator*]" = x86_64;
-				GENERATE_INFOPLIST_FILE = NO;
-				INFOPLIST_FILE = iosWidgets/Info.plist;
+				buildSettings = {
+					CODE_SIGN_ENTITLEMENTS = iosWidgets/BiciRadarWidgets.entitlements;
+					CODE_SIGN_IDENTITY = "Apple Distribution";
+					CODE_SIGN_STYLE = Manual;
+					DEVELOPMENT_TEAM = B87AWPVZWB;
+					"EXCLUDED_ARCHS[sdk=iphonesimulator*]" = x86_64;
+					GENERATE_INFOPLIST_FILE = NO;
+					INFOPLIST_FILE = iosWidgets/Info.plist;
 				IPHONEOS_DEPLOYMENT_TARGET = 16.1;
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",
 					"@executable_path/Frameworks",
 					"@executable_path/../../Frameworks",
 				);
-				PRODUCT_BUNDLE_IDENTIFIER = com.gcaguilar.biciradar.ios.widgets;
-				PRODUCT_NAME = "BiciRadar Widgets";
-				SDKROOT = iphoneos;
-				TARGETED_DEVICE_FAMILY = "1,2";
-			};
+					PRODUCT_BUNDLE_IDENTIFIER = com.gcaguilar.biciradar.ios.widgets;
+					PRODUCT_NAME = "BiciRadar Widgets";
+					PROVISIONING_PROFILE_SPECIFIER = BiciRadarWidgetProfile;
+					SDKROOT = iphoneos;
+					TARGETED_DEVICE_FAMILY = "1,2";
+				};
 			name = Debug;
 		};
 		5E153F1E599167A6BE0B6502 /* Debug */ = {
@@ -1214,11 +1236,14 @@
 				CODE_SIGN_STYLE = Manual;
 				DEVELOPMENT_TEAM = B87AWPVZWB;
 				"EXCLUDED_ARCHS[sdk=iphonesimulator*]" = x86_64;
-				FRAMEWORK_SEARCH_PATHS = (
+				"FRAMEWORK_SEARCH_PATHS[config=Debug]" = (
 					"$(inherited)",
 					"$(SRCROOT)/../shared/mobile-ui/build/bin/iosSimulatorArm64/debugFramework",
-					"$(SRCROOT)/../shared/mobile-ui/build/bin/iosSimulatorArm64/releaseFramework",
 					"$(SRCROOT)/../shared/mobile-ui/build/bin/iosArm64/debugFramework",
+				);
+				"FRAMEWORK_SEARCH_PATHS[config=Release]" = (
+					"$(inherited)",
+					"$(SRCROOT)/../shared/mobile-ui/build/bin/iosSimulatorArm64/releaseFramework",
 					"$(SRCROOT)/../shared/mobile-ui/build/bin/iosArm64/releaseFramework",
 				);
 				GENERATE_INFOPLIST_FILE = NO;
@@ -1248,11 +1273,14 @@
 				CODE_SIGN_STYLE = Manual;
 				DEVELOPMENT_TEAM = B87AWPVZWB;
 				"EXCLUDED_ARCHS[sdk=iphonesimulator*]" = x86_64;
-				FRAMEWORK_SEARCH_PATHS = (
+				"FRAMEWORK_SEARCH_PATHS[config=Debug]" = (
 					"$(inherited)",
 					"$(SRCROOT)/../shared/mobile-ui/build/bin/iosSimulatorArm64/debugFramework",
-					"$(SRCROOT)/../shared/mobile-ui/build/bin/iosSimulatorArm64/releaseFramework",
 					"$(SRCROOT)/../shared/mobile-ui/build/bin/iosArm64/debugFramework",
+				);
+				"FRAMEWORK_SEARCH_PATHS[config=Release]" = (
+					"$(inherited)",
+					"$(SRCROOT)/../shared/mobile-ui/build/bin/iosSimulatorArm64/releaseFramework",
 					"$(SRCROOT)/../shared/mobile-ui/build/bin/iosArm64/releaseFramework",
 				);
 				GENERATE_INFOPLIST_FILE = NO;
@@ -1282,9 +1310,12 @@
 				CODE_SIGN_STYLE = Manual;
 				DEVELOPMENT_TEAM = B87AWPVZWB;
 				"EXCLUDED_ARCHS[sdk=watchsimulator*]" = x86_64;
-				FRAMEWORK_SEARCH_PATHS = (
+				"FRAMEWORK_SEARCH_PATHS[config=Debug]" = (
 					"$(inherited)",
 					"$(SRCROOT)/../shared/core/build/bin/watchosCurrent/debugFramework",
+				);
+				"FRAMEWORK_SEARCH_PATHS[config=Release]" = (
+					"$(inherited)",
 					"$(SRCROOT)/../shared/core/build/bin/watchosCurrent/releaseFramework",
 				);
 				GENERATE_INFOPLIST_FILE = YES;
@@ -1306,26 +1337,28 @@
 		};
 		978E44602FC21625C42B62EC /* Release */ = {
 			isa = XCBuildConfiguration;
-			buildSettings = {
-				"AD_HOC_CODE_SIGNING_ALLOWED[sdk=watchsimulator*]" = NO;
-				"CODE_SIGNING_ALLOWED[sdk=watchsimulator*]" = NO;
-				"CODE_SIGNING_REQUIRED[sdk=watchsimulator*]" = NO;
-				CODE_SIGN_ENTITLEMENTS = watchWidgets/BiciRadarWatchWidgets.entitlements;
-				CODE_SIGN_STYLE = Automatic;
-				DEVELOPMENT_TEAM = B87AWPVZWB;
-				"EXCLUDED_ARCHS[sdk=watchsimulator*]" = x86_64;
-				GENERATE_INFOPLIST_FILE = NO;
+				buildSettings = {
+					"AD_HOC_CODE_SIGNING_ALLOWED[sdk=watchsimulator*]" = NO;
+					"CODE_SIGNING_ALLOWED[sdk=watchsimulator*]" = NO;
+					"CODE_SIGNING_REQUIRED[sdk=watchsimulator*]" = NO;
+					CODE_SIGN_ENTITLEMENTS = watchWidgets/BiciRadarWatchWidgets.entitlements;
+					CODE_SIGN_IDENTITY = "Apple Distribution";
+					CODE_SIGN_STYLE = Manual;
+					DEVELOPMENT_TEAM = B87AWPVZWB;
+					"EXCLUDED_ARCHS[sdk=watchsimulator*]" = x86_64;
+					GENERATE_INFOPLIST_FILE = NO;
 				INFOPLIST_FILE = watchWidgets/Info.plist;
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",
 					"@executable_path/Frameworks",
 					"@executable_path/../../Frameworks",
 				);
-				PRODUCT_BUNDLE_IDENTIFIER = com.gcaguilar.biciradar.ios.watch.widgets;
-				PRODUCT_NAME = "BiciRadar Watch Widgets";
-				SDKROOT = watchos;
-				SKIP_INSTALL = YES;
-				TARGETED_DEVICE_FAMILY = 4;
+					PRODUCT_BUNDLE_IDENTIFIER = com.gcaguilar.biciradar.ios.watch.widgets;
+					PRODUCT_NAME = "BiciRadar Watch Widgets";
+					PROVISIONING_PROFILE_SPECIFIER = BiciRadarWatchWidgetProfile;
+					SDKROOT = watchos;
+					SKIP_INSTALL = YES;
+					TARGETED_DEVICE_FAMILY = 4;
 				WATCHOS_DEPLOYMENT_TARGET = 9.0;
 			};
 			name = Release;
@@ -1354,12 +1387,13 @@
 		};
 		A4044BE39D644B382FA9E0FA /* Release */ = {
 			isa = XCBuildConfiguration;
-			buildSettings = {
-				CODE_SIGN_ENTITLEMENTS = iosWidgets/BiciRadarWidgets.entitlements;
-				CODE_SIGN_STYLE = Automatic;
-				DEVELOPMENT_TEAM = "";
-				"EXCLUDED_ARCHS[sdk=iphonesimulator*]" = x86_64;
-				GENERATE_INFOPLIST_FILE = NO;
+				buildSettings = {
+					CODE_SIGN_ENTITLEMENTS = iosWidgets/BiciRadarWidgets.entitlements;
+					CODE_SIGN_IDENTITY = "Apple Distribution";
+					CODE_SIGN_STYLE = Manual;
+					DEVELOPMENT_TEAM = B87AWPVZWB;
+					"EXCLUDED_ARCHS[sdk=iphonesimulator*]" = x86_64;
+					GENERATE_INFOPLIST_FILE = NO;
 				INFOPLIST_FILE = iosWidgets/Info.plist;
 				IPHONEOS_DEPLOYMENT_TARGET = 16.1;
 				LD_RUNPATH_SEARCH_PATHS = (
@@ -1367,11 +1401,12 @@
 					"@executable_path/Frameworks",
 					"@executable_path/../../Frameworks",
 				);
-				PRODUCT_BUNDLE_IDENTIFIER = com.gcaguilar.biciradar.ios.widgets;
-				PRODUCT_NAME = "BiciRadar Widgets";
-				SDKROOT = iphoneos;
-				TARGETED_DEVICE_FAMILY = "1,2";
-			};
+					PRODUCT_BUNDLE_IDENTIFIER = com.gcaguilar.biciradar.ios.widgets;
+					PRODUCT_NAME = "BiciRadar Widgets";
+					PROVISIONING_PROFILE_SPECIFIER = BiciRadarWidgetProfile;
+					SDKROOT = iphoneos;
+					TARGETED_DEVICE_FAMILY = "1,2";
+				};
 			name = Release;
 		};
 		AEC9D949C88D319A0DAD386C /* Release */ = {
@@ -1381,9 +1416,12 @@
 				CODE_SIGN_STYLE = Automatic;
 				DEVELOPMENT_TEAM = "";
 				"EXCLUDED_ARCHS[sdk=watchsimulator*]" = x86_64;
-				FRAMEWORK_SEARCH_PATHS = (
+				"FRAMEWORK_SEARCH_PATHS[config=Debug]" = (
 					"$(inherited)",
 					"$(SRCROOT)/../shared/core/build/bin/watchosCurrent/debugFramework",
+				);
+				"FRAMEWORK_SEARCH_PATHS[config=Release]" = (
+					"$(inherited)",
 					"$(SRCROOT)/../shared/core/build/bin/watchosCurrent/releaseFramework",
 				);
 				GENERATE_INFOPLIST_FILE = YES;
@@ -1398,6 +1436,7 @@
 				SDKROOT = watchos;
 				SKIP_INSTALL = YES;
 				TARGETED_DEVICE_FAMILY = 4;
+				TEST_HOST = "$(BUILT_PRODUCTS_DIR)/BiciRadarWatch.app/BiciRadarWatch";
 				WATCHOS_DEPLOYMENT_TARGET = 9.0;
 			};
 			name = Release;
@@ -1462,26 +1501,28 @@
 		};
 		F73717D04D0CF2C7F84CC0A7 /* Debug */ = {
 			isa = XCBuildConfiguration;
-			buildSettings = {
-				"AD_HOC_CODE_SIGNING_ALLOWED[sdk=watchsimulator*]" = NO;
-				"CODE_SIGNING_ALLOWED[sdk=watchsimulator*]" = NO;
-				"CODE_SIGNING_REQUIRED[sdk=watchsimulator*]" = NO;
-				CODE_SIGN_ENTITLEMENTS = watchWidgets/BiciRadarWatchWidgets.entitlements;
-				CODE_SIGN_STYLE = Automatic;
-				DEVELOPMENT_TEAM = B87AWPVZWB;
-				"EXCLUDED_ARCHS[sdk=watchsimulator*]" = x86_64;
-				GENERATE_INFOPLIST_FILE = NO;
+				buildSettings = {
+					"AD_HOC_CODE_SIGNING_ALLOWED[sdk=watchsimulator*]" = NO;
+					"CODE_SIGNING_ALLOWED[sdk=watchsimulator*]" = NO;
+					"CODE_SIGNING_REQUIRED[sdk=watchsimulator*]" = NO;
+					CODE_SIGN_ENTITLEMENTS = watchWidgets/BiciRadarWatchWidgets.entitlements;
+					CODE_SIGN_IDENTITY = "Apple Distribution";
+					CODE_SIGN_STYLE = Manual;
+					DEVELOPMENT_TEAM = B87AWPVZWB;
+					"EXCLUDED_ARCHS[sdk=watchsimulator*]" = x86_64;
+					GENERATE_INFOPLIST_FILE = NO;
 				INFOPLIST_FILE = watchWidgets/Info.plist;
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",
 					"@executable_path/Frameworks",
 					"@executable_path/../../Frameworks",
 				);
-				PRODUCT_BUNDLE_IDENTIFIER = com.gcaguilar.biciradar.ios.watch.widgets;
-				PRODUCT_NAME = "BiciRadar Watch Widgets";
-				SDKROOT = watchos;
-				SKIP_INSTALL = YES;
-				TARGETED_DEVICE_FAMILY = 4;
+					PRODUCT_BUNDLE_IDENTIFIER = com.gcaguilar.biciradar.ios.watch.widgets;
+					PRODUCT_NAME = "BiciRadar Watch Widgets";
+					PROVISIONING_PROFILE_SPECIFIER = BiciRadarWatchWidgetProfile;
+					SDKROOT = watchos;
+					SKIP_INSTALL = YES;
+					TARGETED_DEVICE_FAMILY = 4;
 				WATCHOS_DEPLOYMENT_TARGET = 9.0;
 			};
 			name = Debug;

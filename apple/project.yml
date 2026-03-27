@@ -133,11 +133,13 @@ targets:
         PROVISIONING_PROFILE_SPECIFIER: "48baa5e8-be01-4ff1-b1a3-7345ffba5c67"
         EXCLUDED_ARCHS[sdk=iphonesimulator*]: x86_64
         ASSETCATALOG_COMPILER_APPICON_NAME: AppIcon
-        FRAMEWORK_SEARCH_PATHS:
+        FRAMEWORK_SEARCH_PATHS[config=Debug]:
           - $(inherited)
           - $(SRCROOT)/../shared/mobile-ui/build/bin/iosSimulatorArm64/debugFramework
-          - $(SRCROOT)/../shared/mobile-ui/build/bin/iosSimulatorArm64/releaseFramework
           - $(SRCROOT)/../shared/mobile-ui/build/bin/iosArm64/debugFramework
+        FRAMEWORK_SEARCH_PATHS[config=Release]:
+          - $(inherited)
+          - $(SRCROOT)/../shared/mobile-ui/build/bin/iosSimulatorArm64/releaseFramework
           - $(SRCROOT)/../shared/mobile-ui/build/bin/iosArm64/releaseFramework
         GENERATE_INFOPLIST_FILE: NO
         INFOPLIST_FILE: iosApp/Info.plist
@@ -163,8 +165,10 @@ targets:
     settings:
       base:
         CODE_SIGN_ENTITLEMENTS: iosWidgets/BiciRadarWidgets.entitlements
-        CODE_SIGN_STYLE: Automatic
-        DEVELOPMENT_TEAM: ""
+        CODE_SIGN_STYLE: Manual
+        CODE_SIGN_IDENTITY: "Apple Distribution"
+        DEVELOPMENT_TEAM: B87AWPVZWB
+        PROVISIONING_PROFILE_SPECIFIER: "BiciRadarWidgetProfile"
         EXCLUDED_ARCHS[sdk=iphonesimulator*]: x86_64
         GENERATE_INFOPLIST_FILE: NO
         INFOPLIST_FILE: iosWidgets/Info.plist
@@ -184,11 +188,13 @@ targets:
         CODE_SIGN_STYLE: Automatic
         DEVELOPMENT_TEAM: ""
         EXCLUDED_ARCHS[sdk=iphonesimulator*]: x86_64
-        FRAMEWORK_SEARCH_PATHS:
+        FRAMEWORK_SEARCH_PATHS[config=Debug]:
           - $(inherited)
           - $(SRCROOT)/../shared/mobile-ui/build/bin/iosSimulatorArm64/debugFramework
-          - $(SRCROOT)/../shared/mobile-ui/build/bin/iosSimulatorArm64/releaseFramework
           - $(SRCROOT)/../shared/mobile-ui/build/bin/iosArm64/debugFramework
+        FRAMEWORK_SEARCH_PATHS[config=Release]:
+          - $(inherited)
+          - $(SRCROOT)/../shared/mobile-ui/build/bin/iosSimulatorArm64/releaseFramework
           - $(SRCROOT)/../shared/mobile-ui/build/bin/iosArm64/releaseFramework
         GENERATE_INFOPLIST_FILE: YES
         PRODUCT_BUNDLE_IDENTIFIER: com.gcaguilar.biciradar.ios.tests
@@ -269,9 +275,11 @@ targets:
         ARCHS[sdk=watchos*]: "arm64 arm64_32"
         EXCLUDED_ARCHS[sdk=watchsimulator*]: x86_64
         ASSETCATALOG_COMPILER_APPICON_NAME: AppIcon
-        FRAMEWORK_SEARCH_PATHS:
+        FRAMEWORK_SEARCH_PATHS[config=Debug]:
           - $(inherited)
           - $(SRCROOT)/../shared/core/build/bin/watchosCurrent/debugFramework
+        FRAMEWORK_SEARCH_PATHS[config=Release]:
+          - $(inherited)
           - $(SRCROOT)/../shared/core/build/bin/watchosCurrent/releaseFramework
         GENERATE_INFOPLIST_FILE: YES
         INFOPLIST_KEY_CFBundleDisplayName: Bici Radar Watch
@@ -299,8 +307,10 @@ targets:
         CODE_SIGN_ENTITLEMENTS: watchWidgets/BiciRadarWatchWidgets.entitlements
         CODE_SIGNING_ALLOWED[sdk=watchsimulator*]: NO
         CODE_SIGNING_REQUIRED[sdk=watchsimulator*]: NO
-        CODE_SIGN_STYLE: Automatic
+        CODE_SIGN_STYLE: Manual
+        CODE_SIGN_IDENTITY: "Apple Distribution"
         DEVELOPMENT_TEAM: B87AWPVZWB
+        PROVISIONING_PROFILE_SPECIFIER: "BiciRadarWatchWidgetProfile"
         EXCLUDED_ARCHS[sdk=watchsimulator*]: x86_64
         GENERATE_INFOPLIST_FILE: NO
         INFOPLIST_FILE: watchWidgets/Info.plist
@@ -365,9 +375,11 @@ targets:
         CODE_SIGN_STYLE: Automatic
         DEVELOPMENT_TEAM: ""
         EXCLUDED_ARCHS[sdk=watchsimulator*]: x86_64
-        FRAMEWORK_SEARCH_PATHS:
+        FRAMEWORK_SEARCH_PATHS[config=Debug]:
           - $(inherited)
           - $(SRCROOT)/../shared/core/build/bin/watchosCurrent/debugFramework
+        FRAMEWORK_SEARCH_PATHS[config=Release]:
+          - $(inherited)
           - $(SRCROOT)/../shared/core/build/bin/watchosCurrent/releaseFramework
         GENERATE_INFOPLIST_FILE: YES
         OTHER_LDFLAGS: $(inherited) -framework BiziSharedCore
