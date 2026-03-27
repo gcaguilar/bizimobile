@@ -10,6 +10,13 @@ struct WatchStationSnapshot: Identifiable, Hashable {
     let distanceMeters: Int
 }
 
+enum WatchStationStatusLevel: Hashable {
+    case good
+    case low
+    case empty
+    case full
+}
+
 actor BiziWatchGraph {
     static let shared = BiziWatchGraph()
 
@@ -299,7 +306,27 @@ private extension Station {
     }
 }
 
-private extension WatchStationSnapshot {
+extension WatchStationSnapshot {
+    var statusLevel: WatchStationStatusLevel {
+        if bikesAvailable == 0 { return .empty }
+        if slotsFree == 0 { return .full }
+        if bikesAvailable <= 3 || slotsFree <= 3 { return .low }
+        return .good
+    }
+
+    var statusText: String {
+        switch statusLevel {
+        case .good:
+            return "Disponible"
+        case .low:
+            return "Pocas"
+        case .empty:
+            return "Sin bicis"
+        case .full:
+            return "Sin huecos"
+        }
+    }
+
     func searchScore(
         normalizedQuery: String,
         numericQuery: String,

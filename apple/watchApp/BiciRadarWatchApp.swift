@@ -135,7 +135,11 @@ struct WatchDashboardView: View {
                 Section {
                     Button {
                         Task {
-                            await model.refresh(favoriteIds: syncBridge.favoriteIds)
+                            await model.refresh(
+                                favoriteIds: syncBridge.favoriteIds,
+                                homeStationId: syncBridge.homeStationId,
+                                workStationId: syncBridge.workStationId
+                            )
                         }
                     } label: {
                         Label("Actualizar", systemImage: "arrow.clockwise")
@@ -147,11 +151,37 @@ struct WatchDashboardView: View {
             .animation(.spring(response: 0.36, dampingFraction: 0.82), value: model.nearbyStations.count)
             .animation(.spring(response: 0.36, dampingFraction: 0.82), value: model.favoriteStations.count)
             .task {
-                await model.refresh(favoriteIds: syncBridge.favoriteIds)
+                await model.refresh(
+                    favoriteIds: syncBridge.favoriteIds,
+                    homeStationId: syncBridge.homeStationId,
+                    workStationId: syncBridge.workStationId
+                )
             }
             .onChange(of: syncBridge.favoriteIds) { favoriteIds in
                 Task {
-                    await model.refresh(favoriteIds: favoriteIds)
+                    await model.refresh(
+                        favoriteIds: favoriteIds,
+                        homeStationId: syncBridge.homeStationId,
+                        workStationId: syncBridge.workStationId
+                    )
+                }
+            }
+            .onChange(of: syncBridge.homeStationId) { _ in
+                Task {
+                    await model.refresh(
+                        favoriteIds: syncBridge.favoriteIds,
+                        homeStationId: syncBridge.homeStationId,
+                        workStationId: syncBridge.workStationId
+                    )
+                }
+            }
+            .onChange(of: syncBridge.workStationId) { _ in
+                Task {
+                    await model.refresh(
+                        favoriteIds: syncBridge.favoriteIds,
+                        homeStationId: syncBridge.homeStationId,
+                        workStationId: syncBridge.workStationId
+                    )
                 }
             }
         }
@@ -172,6 +202,9 @@ private struct StationRow: View {
                 .font(.footnote)
                 .foregroundStyle(.secondary)
                 .lineLimit(1)
+            Text(station.statusText)
+                .font(.caption2.weight(.semibold))
+                .foregroundStyle(watchStatusColor(station.statusLevel))
             HStack(spacing: 5) {
                 WatchInfoBadge(
                     label: "m",
@@ -231,6 +264,9 @@ private struct WatchStationDetailView: View {
                         tint: station.slotsFree > 0 ? .biziDarkSecondary : .biziError
                     )
                 }
+                Text(station.statusText)
+                    .font(.footnote.weight(.semibold))
+                    .foregroundStyle(watchStatusColor(station.statusLevel))
 
                 Button {
                     Task {
@@ -272,6 +308,17 @@ private struct WatchStationDetailView: View {
             .animation(.spring(response: 0.32, dampingFraction: 0.84), value: routeStatus)
         }
         .navigationTitle("Detalle")
+    }
+}
+
+private func watchStatusColor(_ statusLevel: WatchStationStatusLevel) -> Color {
+    switch statusLevel {
+    case .good:
+        return .biziDarkSecondary
+    case .low:
+        return .biziWarning
+    case .empty, .full:
+        return .biziError
     }
 }
 
