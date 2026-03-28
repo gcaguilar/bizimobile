@@ -61,6 +61,7 @@ import androidx.compose.material3.CardDefaults
 import androidx.compose.material3.ExperimentalMaterial3Api
 import androidx.compose.material3.Icon
 import androidx.compose.material3.IconButton
+import androidx.compose.material3.ColorScheme
 import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.NavigationBar
 import androidx.compose.material3.NavigationBarItem
@@ -799,21 +800,61 @@ private fun BiziTheme(
     ThemePreference.Dark -> true
     ThemePreference.System -> isSystemInDarkTheme()
   }
-  val colors = if (isDark) DarkBiziColors else LightBiziColors
+  val dynamicColorScheme = platformDynamicColorScheme(isDark)
+  val colors = dynamicColorScheme?.let { dynamicScheme ->
+    dynamicBiziColors(dynamicScheme, mobilePlatform, isDark)
+  } ?: if (isDark) {
+    DarkBiziColors
+  } else {
+    LightBiziColors
+  }
   CompositionLocalProvider(LocalBiziColors provides colors) {
     MaterialTheme(
-      colorScheme = MaterialTheme.colorScheme.copy(
-        primary = colors.red,
-        background = if (mobilePlatform == MobileUiPlatform.IOS) colors.groupedBackground else colors.background,
-        surface = colors.surface,
-        onSurface = colors.ink,
-        onBackground = colors.ink,
-        surfaceVariant = if (mobilePlatform == MobileUiPlatform.IOS) colors.panel else colors.background,
+      colorScheme = dynamicColorScheme ?: fallbackBiziColorScheme(
+        colors = colors,
+        mobilePlatform = mobilePlatform,
       ),
       content = content,
     )
   }
 }
+
+@Composable
+private fun fallbackBiziColorScheme(
+  colors: BiziColors,
+  mobilePlatform: MobileUiPlatform,
+): ColorScheme = MaterialTheme.colorScheme.copy(
+  primary = colors.red,
+  background = if (mobilePlatform == MobileUiPlatform.IOS) colors.groupedBackground else colors.background,
+  surface = colors.surface,
+  onSurface = colors.ink,
+  onBackground = colors.ink,
+  surfaceVariant = if (mobilePlatform == MobileUiPlatform.IOS) colors.panel else colors.background,
+)
+
+private fun dynamicBiziColors(
+  colorScheme: ColorScheme,
+  mobilePlatform: MobileUiPlatform,
+  isDark: Boolean,
+): BiziColors = BiziColors(
+  background = colorScheme.background,
+  groupedBackground = if (mobilePlatform == MobileUiPlatform.IOS) colorScheme.surface else colorScheme.background,
+  surface = colorScheme.surface,
+  ink = colorScheme.onSurface,
+  muted = colorScheme.onSurfaceVariant,
+  panel = colorScheme.surfaceVariant,
+  red = colorScheme.primary,
+  blue = colorScheme.tertiary,
+  green = colorScheme.secondary,
+  orange = colorScheme.tertiary,
+  purple = colorScheme.secondary,
+  onAccent = colorScheme.onPrimary,
+  navBar = colorScheme.surface,
+  navBarIos = colorScheme.surface.copy(alpha = 0.96f),
+  fieldSurfaceIos = colorScheme.surface,
+  fieldSurfaceAndroid = colorScheme.surfaceVariant,
+  dismissAlphaBase = if (isDark) 0.16f else 0.10f,
+)
 
 @Composable
 private fun StartupSplashScreen(
