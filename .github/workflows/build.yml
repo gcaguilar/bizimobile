@@ -33,7 +33,7 @@ jobs:
         run: yes | sdkmanager --licenses >/dev/null
 
       - name: Set up Gradle
-        uses: gradle/actions/setup-gradle@v5
+        uses: gradle/actions/setup-gradle@v6
 
       - name: Make Gradle wrapper executable
         run: chmod +x gradlew tooling/generic-mobile-ci/*.sh
@@ -130,7 +130,7 @@ jobs:
         run: yes | sdkmanager --licenses >/dev/null
 
       - name: Set up Gradle
-        uses: gradle/actions/setup-gradle@v5
+        uses: gradle/actions/setup-gradle@v6
 
       - name: Make scripts executable
         run: chmod +x gradlew tooling/generic-mobile-ci/*.sh
@@ -164,7 +164,6 @@ jobs:
           xcodebuild \
             -project apple/BiciRadar.xcodeproj \
             -scheme BiciRadariOSTests \
-            -sdk iphonesimulator \
             -destination "$IOS_DESTINATION" \
             -derivedDataPath "$RUNNER_TEMP/derived-data-ios" \
             -resultBundlePath "$RUNNER_TEMP/ios-tests.xcresult" \
@@ -201,7 +200,7 @@ jobs:
         run: yes | sdkmanager --licenses >/dev/null
 
       - name: Set up Gradle
-        uses: gradle/actions/setup-gradle@v5
+        uses: gradle/actions/setup-gradle@v6
 
       - name: Make scripts executable
         run: chmod +x gradlew tooling/generic-mobile-ci/*.sh

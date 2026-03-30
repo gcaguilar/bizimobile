@@ -32,6 +32,14 @@ final class AppleLaunchRequestStoreTests: XCTestCase {
         XCTAssertNil(store.takePendingRequest())
     }
 
+    func testHomeAndMapRequestsRoundTrip() {
+        store.save(MobileLaunchRequestHome.shared)
+        XCTAssertTrue(store.takePendingRequest() is MobileLaunchRequestHome)
+
+        store.save(MobileLaunchRequestMap.shared)
+        XCTAssertTrue(store.takePendingRequest() is MobileLaunchRequestMap)
+    }
+
     func testLegacyFavoritesActionStillLoads() {
         defaults.set("favorites", forKey: "bizizaragoza.pendingAction")
 
@@ -90,31 +98,20 @@ final class AppleLaunchRequestStoreTests: XCTestCase {
         XCTAssertNil(store.takePendingRequest())
     }
 
-    func testLaunchEnvironmentSeedsPendingRequest() {
-        store.seedFromLaunchEnvironment([
-            "BIZI_UI_TEST_PENDING_ACTION": "favorite_stations"
-        ])
+    func testMonitorStationRequestPreservesStationIdentifier() {
+        store.save(MobileLaunchRequestMonitorStation(stationId: "station-9"))
 
-        XCTAssertTrue(store.takePendingRequest() is MobileLaunchRequestFavorites)
+        let request = store.takePendingRequest() as? MobileLaunchRequestMonitorStation
+        XCTAssertEqual(request?.stationId, "station-9")
+        XCTAssertNil(store.takePendingRequest())
     }
 
-    func testLaunchEnvironmentStoresStationIdentifierWhenProvided() {
-        store.seedFromLaunchEnvironment([
-            "BIZI_UI_TEST_PENDING_ACTION": "show_station",
-            "BIZI_UI_TEST_PENDING_STATION_ID": "station-77"
-        ])
+    func testSelectCityRequestPreservesCityIdentifier() {
+        store.save(MobileLaunchRequestSelectCity(cityId: "zaragoza"))
 
-        let request = store.takePendingRequest() as? MobileLaunchRequestShowStation
-        XCTAssertEqual(request?.stationId, "station-77")
+        let request = store.takePendingRequest() as? MobileLaunchRequestSelectCity
+        XCTAssertEqual(request?.cityId, "zaragoza")
+        XCTAssertNil(store.takePendingRequest())
     }
 
-    func testLaunchEnvironmentClearsStaleStationIdentifierWhenOmitted() {
-        defaults.set("station-stale", forKey: "bizizaragoza.pendingStationId")
-
-        store.seedFromLaunchEnvironment([
-            "BIZI_UI_TEST_PENDING_ACTION": "favorite_stations"
-        ])
-
-        XCTAssertNil(defaults.string(forKey: "bizizaragoza.pendingStationId"))
-    }
 }

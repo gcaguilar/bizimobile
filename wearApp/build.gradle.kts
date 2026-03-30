@@ -33,8 +33,8 @@ android {
     applicationId = wearApplicationId
     minSdk = 30
     targetSdk = 36
-    versionCode = 29568083
-    versionName = "0.18.0"
+    versionCode = 29568089
+    versionName = "0.18.1"
   }
 
   buildFeatures {
@@ -88,9 +88,12 @@ android {
     implementation(libs.androidx.activity.compose)
     implementation(libs.androidx.core.ktx)
     implementation(libs.metro.runtime)
+    implementation(libs.androidx.wear.protolayout)
+    implementation(libs.androidx.wear.protolayout.material3)
     implementation(libs.androidx.wear.compose.foundation)
     implementation(libs.androidx.wear.compose.material3)
     implementation(libs.androidx.wear.compose.navigation)
+    implementation(libs.androidx.wear.tiles)
     if (firebaseCrashlyticsEnabled) {
       implementation(platform(libs.firebase.bom))
       implementation(libs.firebase.crashlytics)

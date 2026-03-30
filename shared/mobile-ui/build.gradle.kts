@@ -45,13 +45,18 @@ kotlin {
       api(project(":shared:core"))
       implementation(compose.foundation)
       implementation(compose.materialIconsExtended)
-      implementation(compose.material3)
+      implementation(libs.jetbrains.compose.material3)
       implementation(compose.runtime)
       implementation(compose.ui)
+      implementation(libs.jetbrains.compose.material3.adaptive)
       implementation(libs.compose.resources)
       implementation(libs.metro.runtime)
       implementation(libs.androidx.lifecycle.runtime.compose)
       implementation(libs.navigation.compose)
+    }
+    commonTest.dependencies {
+      implementation(libs.coroutines.test)
+      implementation(libs.kotlin.test)
     }
     androidMain.dependencies {
       implementation(libs.maps.compose)
