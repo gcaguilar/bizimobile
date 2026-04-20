@@ -1,17 +1,15 @@
 {
   "linkset": [
     {
-      "anchor": "https://biciradar.com/api/",
+      "anchor": "https://biciradar.es/api/beta-signup",
       "rel": [
-        "service-doc",
-        "service-desc",
-        "status"
+        "service-doc"
       ],
       "href": "/api/docs",
       "type": "text/html"
     },
     {
-      "anchor": "https://biciradar.com/api/",
+      "anchor": "https://biciradar.es/api/beta-signup",
       "rel": [
         "service-desc"
       ],
@@ -19,12 +17,12 @@
       "type": "application/openapi+json"
     },
     {
-      "anchor": "https://biciradar.com/api/",
+      "anchor": "https://biciradar.es/api/beta-signup",
       "rel": [
-        "status"
+        "describedby"
       ],
-      "href": "/api/health",
-      "type": "application/json"
+      "href": "/llms.txt",
+      "type": "text/plain"
     }
   ]
 }
