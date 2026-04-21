@@ -14,9 +14,9 @@ class FdroidMapSupport(
 ) : MapSupport {
     override fun currentStatus(): MapSupportStatus {
         return MapSupportStatus(
-            embeddedProvider = EmbeddedMapProvider.Osmdroid,
-            googleMapsSdkLinked = false, // Not using Google Maps SDK
-            googleMapsApiKeyConfigured = false // No API key needed for OSMdroid
+            embeddedProvider = EmbeddedMapProvider.None,
+            googleMapsSdkLinked = false,
+            googleMapsApiKeyConfigured = false
         )
     }
 }
