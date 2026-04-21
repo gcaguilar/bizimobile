@@ -202,6 +202,7 @@ val verifyFdroidReleaseDependencies by
     forbiddenPrefixes.set(
       listOf(
         "com.google.android.gms:",
+        "com.google.android.play:",
         "com.google.firebase:",
         "com.garmin.connectiq:",
         "com.google.maps.android:",
