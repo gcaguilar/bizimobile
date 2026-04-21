@@ -45,9 +45,9 @@ Users will see one app listing, but Google Play serves the appropriate version b
 
 - Each `assembleFdroidRelease` run also executes a dependency gate that fails when the runtime classpath includes Google Play Services, Firebase, Garmin Connect IQ, or Google Maps Compose artifacts.
 - Submission-ready metadata lives in:
-  - [docs/fdroid/README.md](/Users/guillermo.castella/biciradar/docs/fdroid/README.md)
-  - [metadata/com.gcaguilar.biciradar.fdroid.yml](/Users/guillermo.castella/biciradar/metadata/com.gcaguilar.biciradar.fdroid.yml)
-  - [metadata/com.gcaguilar.biciradar.wear.fdroid.yml](/Users/guillermo.castella/biciradar/metadata/com.gcaguilar.biciradar.wear.fdroid.yml)
+  - [docs/fdroid/README.md](docs/fdroid/README.md)
+  - [metadata/com.gcaguilar.biciradar.fdroid.yml](metadata/com.gcaguilar.biciradar.fdroid.yml)
+  - [metadata/com.gcaguilar.biciradar.wear.fdroid.yml](metadata/com.gcaguilar.biciradar.wear.fdroid.yml)
   - `androidApp/src/fdroid/fastlane/metadata/android/en-US/`
   - `wearApp/src/fdroid/fastlane/metadata/android/en-US/`
 - Before sending the MR to `fdroiddata`, replace the placeholder screenshot directories with real captures and update the metadata commit to the final release tag.
