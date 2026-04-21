@@ -212,7 +212,24 @@ export function getApiCatalog(site?: URL | string, basePath = '/') {
 export function getAgentSkillsIndex(site?: URL | string, basePath = '/') {
   const siteUrl = resolveSiteUrl(site);
   const rootUrl = absolutePageUrl('/', siteUrl, basePath);
-  const skills = [
+type AgentSkill = {
+  id: string;
+  title: string;
+  href: string;
+  output?: {
+    header: string;
+    relations: string[];
+  };
+  accepts?: string[];
+  contentType?: string;
+  openidConfiguration?: string;
+  protectedResource?: string;
+};
+
+export function getAgentSkillsIndex(site?: URL | string, basePath = '/') {
+  const siteUrl = resolveSiteUrl(site);
+  const rootUrl = absolutePageUrl('/', siteUrl, basePath);
+  const skills: AgentSkill[] = [
     {
       id: 'link-headers',
       title: 'Homepage Link headers for agent discovery',
@@ -233,20 +250,20 @@ export function getAgentSkillsIndex(site?: URL | string, basePath = '/') {
 
   if (hasOAuthDiscoveryConfig()) {
     skills.push({
-        id: 'oauth-discovery',
-        title: 'OAuth and OpenID Connect discovery metadata',
-        href: absoluteUrl('/.well-known/oauth-authorization-server', siteUrl, basePath),
-        openidConfiguration: absoluteUrl('/.well-known/openid-configuration', siteUrl, basePath),
-        protectedResource: absoluteUrl('/.well-known/oauth-protected-resource', siteUrl, basePath),
-      });
+      id: 'oauth-discovery',
+      title: 'OAuth and OpenID Connect discovery metadata',
+      href: absoluteUrl('/.well-known/oauth-authorization-server', siteUrl, basePath),
+      openidConfiguration: absoluteUrl('/.well-known/openid-configuration', siteUrl, basePath),
+      protectedResource: absoluteUrl('/.well-known/oauth-protected-resource', siteUrl, basePath),
+    });
   }
 
   if (hasMcpServerCardConfig()) {
     skills.push({
-        id: 'mcp-server-card',
-        title: 'MCP server discovery card',
-        href: absoluteUrl('/.well-known/mcp/server-card.json', siteUrl, basePath),
-      });
+      id: 'mcp-server-card',
+      title: 'MCP server discovery card',
+      href: absoluteUrl('/.well-known/mcp/server-card.json', siteUrl, basePath),
+    });
   }
 
   return {
