@@ -23,6 +23,7 @@ import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.navigation.NavHostController
 import androidx.navigation.compose.rememberNavController
+import com.gcaguilar.biciradar.core.EmbeddedMapProvider
 import com.gcaguilar.biciradar.core.PlatformBindings
 import com.gcaguilar.biciradar.core.PreferredMapApp
 import com.gcaguilar.biciradar.core.SharedGraph
@@ -142,7 +143,9 @@ fun BiziMobileApp(
       mobilePlatform == MobileUiPlatform.IOS && preferredMapApp == PreferredMapApp.GoogleMaps ->
         mapSupportStatus.googleMapsSdkLinked && canSelectGoogleMapsInIos
       mobilePlatform == MobileUiPlatform.IOS -> false
-      else -> mapSupportStatus.isGoogleMapsReady()
+      else ->
+        mapSupportStatus.embeddedProvider != EmbeddedMapProvider.None ||
+          mapSupportStatus.isGoogleMapsReady()
     }
   CompositionLocalProvider(LocalMetroViewModelFactory provides resolvedGraph.metroViewModelFactory) {
     val appRootViewModel = metroViewModel<AppRootViewModel>(key = "app-root")
