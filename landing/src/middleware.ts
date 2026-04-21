@@ -1,6 +1,7 @@
 import { defineMiddleware } from 'astro:middleware';
 import TurndownService from 'turndown';
 import { getAgentDiscoveryLinkValues, isHomepagePath } from './lib/agent-discovery';
+import { normalizeBasePath } from './utils/paths';
 
 const turndownService = new TurndownService();
 
@@ -11,8 +12,11 @@ export const onRequest = defineMiddleware(async (context, next) => {
   const requestUrl = new URL(context.request.url);
   const path = requestUrl.pathname;
   const response = await next();
+  const normalizedBase = normalizeBasePath(import.meta.env.BASE_URL);
+  const wellKnownPrefix =
+    normalizedBase === '/' ? '/.well-known/' : `${normalizedBase}/.well-known/`;
 
-  if (path.startsWith('/.well-known/')) {
+  if (path.startsWith(wellKnownPrefix)) {
     if (path.endsWith('/api-catalog')) {
       response.headers.set('Content-Type', 'application/linkset+json');
     } else if (

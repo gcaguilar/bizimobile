@@ -5,7 +5,7 @@
       "rel": [
         "service-doc"
       ],
-      "href": "/api/docs",
+      "href": "../api/docs",
       "type": "text/html"
     },
     {
@@ -13,7 +13,7 @@
       "rel": [
         "service-desc"
       ],
-      "href": "/api/openapi.json",
+      "href": "../api/openapi.json",
       "type": "application/openapi+json"
     },
     {
@@ -21,7 +21,7 @@
       "rel": [
         "describedby"
       ],
-      "href": "/llms.txt",
+      "href": "../llms.txt",
       "type": "text/plain"
     }
   ]
