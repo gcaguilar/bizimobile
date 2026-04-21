@@ -36,6 +36,9 @@ export const onRequest = defineMiddleware(async (context, next) => {
   const isSafeMethod = context.request.method === 'GET' || context.request.method === 'HEAD';
 
   if (!wantsMarkdown || !isHtmlResponse || !isSafeMethod) {
+    if (isHtmlResponse) {
+      response.headers.set('Vary', appendVaryHeader(response.headers.get('Vary'), 'Accept'));
+    }
     return response;
   }
 
