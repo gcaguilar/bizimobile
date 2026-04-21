@@ -65,6 +65,8 @@ function appendVaryHeader(currentValue: string | null, value: string) {
     .split(',')
     .map((entry) => entry.trim())
     .filter(Boolean);
+  const entriesLower = entries.map((entry) => entry.toLowerCase());
+  const valueLower = value.toLowerCase();
 
-  return entries.includes(value) ? currentValue : `${currentValue}, ${value}`;
+  return entriesLower.includes(valueLower) ? currentValue : `${currentValue}, ${value}`;
 }
