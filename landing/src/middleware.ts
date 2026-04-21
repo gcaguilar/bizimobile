@@ -51,6 +51,8 @@ export const onRequest = defineMiddleware(async (context, next) => {
   markdownHeaders.set('x-markdown-tokens', String(tokenCount));
   markdownHeaders.set('Vary', appendVaryHeader(markdownHeaders.get('Vary'), 'Accept'));
   markdownHeaders.delete('Content-Length');
+  markdownHeaders.delete('Content-Encoding');
+  markdownHeaders.delete('ETag');
 
   return new Response(context.request.method === 'HEAD' ? null : markdown, {
     status: response.status,
