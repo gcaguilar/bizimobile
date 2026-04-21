@@ -6,7 +6,7 @@ What you can do:
 - browse supported cities and stations
 - save favorite stations
 - use commute shortcuts and widgets
-- launch external routing with free-software compatible geo intents
+- launch external routing with free-software-compatible geo intents
 - receive monitoring notifications
 
 This flavor intentionally avoids Firebase, Google Play Services, Garmin Connect IQ, and in-app review/update SDKs.
