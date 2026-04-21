@@ -1,9 +1,25 @@
-import { withBase } from '../utils/paths';
+import { defaultLocale, locales } from './i18n';
+import { normalizeBasePath, withBase } from '../utils/paths';
 
-const homeLocalePathPattern = /^\/(?:en|ca|gl|eu)\/?$/;
+const localizedHomeLocales = locales.filter((locale) => locale !== defaultLocale);
 
-export function isHomepagePath(pathname: string) {
-  return pathname === '/' || homeLocalePathPattern.test(pathname);
+function escapeRegExp(value: string) {
+  return value.replace(/[.*+?^${}()|[\]\\]/g, '\\$&');
+}
+
+export function isHomepagePath(pathname: string, basePath = '/') {
+  const normalizedBase = normalizeBasePath(basePath);
+  if (pathname === normalizedBase || pathname === `${normalizedBase}/`) {
+    return true;
+  }
+
+  if (!localizedHomeLocales.length) {
+    return false;
+  }
+
+  const basePrefix = normalizedBase === '/' ? '' : escapeRegExp(normalizedBase);
+  const localePattern = localizedHomeLocales.map(escapeRegExp).join('|');
+  return new RegExp(`^${basePrefix}/(?:${localePattern})/?$`).test(pathname);
 }
 
 export function getAgentDiscoveryLinkValues(basePath = '/') {

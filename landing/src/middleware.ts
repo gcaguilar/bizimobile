@@ -24,7 +24,7 @@ export const onRequest = defineMiddleware(async (context, next) => {
   }
 
   const contentType = response.headers.get('Content-Type') || '';
-  if (contentType.includes('text/html') && isHomepagePath(path)) {
+  if (contentType.includes('text/html') && isHomepagePath(path, import.meta.env.BASE_URL)) {
     for (const value of getAgentDiscoveryLinkValues(import.meta.env.BASE_URL)) {
       response.headers.append('Link', value);
     }

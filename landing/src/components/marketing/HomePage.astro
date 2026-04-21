@@ -423,8 +423,12 @@ const webMcpConfig = {
     const registerTools = async () => {
       try {
         if (typeof modelContext.provideContext === 'function') {
-          await modelContext.provideContext({ tools });
-          return;
+          try {
+            await modelContext.provideContext({ tools });
+            return;
+          } catch {
+            // Fall through to the per-tool compatibility path.
+          }
         }
 
         if (typeof modelContext.registerTool === 'function') {

@@ -22,9 +22,9 @@ import Layout from '../../layouts/Layout.astro';
     <section class="space-y-3">
       <h2 class="text-2xl font-bold tracking-tight text-slate-950">Request</h2>
       <p class="text-sm leading-6 text-slate-600">
-        Send `multipart/form-data` with `email`, `operatingSystem`, `locale`, `pageKind`, and
-        `pagePath`. Optional fields include `cityPageKey`, UTM parameters, `startedAt`, and
-        `cf-turnstile-response` when Turnstile is enabled.
+        Send `multipart/form-data` with `email`, `operatingSystem`, and `consent`.
+        Optional fields include `locale`, `pageKind`, `pagePath`, `cityPageKey`, UTM parameters,
+        `startedAt`, and `cf-turnstile-response` when Turnstile is enabled.
       </p>
     </section>
 
@@ -33,8 +33,9 @@ import Layout from '../../layouts/Layout.astro';
       <p class="text-sm leading-6 text-slate-600">
         Successful JSON responses include <code>{'{ "ok": true, "redirectPath": "/gracias-beta/?os=ios" }'}</code>.
         Browser form submissions receive a `303` redirect to the localized thank-you page. Validation
-        or Turnstile failures return <code>{'{ "ok": false, "message": "..." }'}</code> for JSON clients
-        and redirect browsers back to the page that submitted the form.
+        and consent failures return <code>{'{ "ok": false, "message": "..." }'}</code> for JSON clients.
+        Submissions that arrive too quickly can also receive a `429` with `Please try again.` and
+        browsers redirect back to the page that submitted the form.
       </p>
     </section>
 

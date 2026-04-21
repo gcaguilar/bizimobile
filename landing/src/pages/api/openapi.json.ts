@@ -29,7 +29,7 @@ export const GET: APIRoute = ({ site }) => {
                 schema: {
                   type: 'object',
                   additionalProperties: false,
-                  required: ['email', 'operatingSystem', 'locale', 'pageKind', 'pagePath'],
+                  required: ['email', 'operatingSystem', 'consent'],
                   properties: {
                     email: { type: 'string', format: 'email' },
                     operatingSystem: { type: 'string', enum: ['ios', 'android', 'both'] },
@@ -39,7 +39,7 @@ export const GET: APIRoute = ({ site }) => {
                     cityPageKey: { type: 'string' },
                     startedAt: { type: 'string' },
                     company: { type: 'string' },
-                    consent: { type: 'string', enum: ['true'] },
+                    consent: { type: 'string', enum: ['on', 'true', '1', 'yes'] },
                     'cf-turnstile-response': { type: 'string' },
                     utm_source: { type: 'string' },
                     utm_medium: { type: 'string' },
@@ -86,6 +86,21 @@ export const GET: APIRoute = ({ site }) => {
                 },
               },
             },
+            '429': {
+              description: 'Too many requests — Please try again.',
+              content: {
+                'application/json': {
+                  schema: {
+                    type: 'object',
+                    required: ['ok', 'message'],
+                    properties: {
+                      ok: { type: 'boolean', const: false },
+                      message: { type: 'string' },
+                    },
+                  },
+                },
+              },
+            },
           },
         },
       },
@@ -94,7 +109,7 @@ export const GET: APIRoute = ({ site }) => {
       description: 'Human-readable service documentation',
       url: absolutePageUrl('/api/docs', siteUrl, import.meta.env.BASE_URL),
     },
-    links: [
+    'x-links': [
       {
         rel: 'service-doc',
         href: absolutePageUrl('/api/docs', siteUrl, import.meta.env.BASE_URL),
