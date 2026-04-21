@@ -171,10 +171,7 @@ internal actual fun PlatformStationMap(
               modifier =
                 Modifier
                   .fillMaxWidth()
-                  .clickable {
-                    onMapClick?.invoke(station.location)
-                    onStationSelected(station)
-                  },
+                  .clickable { onStationSelected(station) },
               shape = MaterialTheme.shapes.large,
               color = if (highlighted) colors.red.copy(alpha = 0.06f) else colors.surface,
               border =
