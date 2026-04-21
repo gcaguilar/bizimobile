@@ -56,6 +56,7 @@ import io.ktor.client.plugins.HttpTimeout
 import io.ktor.client.plugins.contentnegotiation.ContentNegotiation
 import io.ktor.serialization.kotlinx.json.json
 import kotlinx.coroutines.suspendCancellableCoroutine
+import kotlinx.coroutines.withTimeoutOrNull
 import kotlinx.serialization.json.Json
 import okio.FileSystem
 import kotlin.coroutines.resume
@@ -271,34 +272,32 @@ class AndroidPlatformBindings(
         .mapNotNull { provider -> runCatching { manager.getLastKnownLocation(provider) }.getOrNull() }
         .maxByOrNull(Location::getTime)
 
-import kotlinx.coroutines.withTimeoutOrNull
+    private suspend fun currentLocation(
+      manager: LocationManager,
+      provider: String,
+    ): Location? = withTimeoutOrNull(10_000L) {
+      suspendCancellableCoroutine { continuation ->
+        if (Build.VERSION.SDK_INT < Build.VERSION_CODES.R) {
+          continuation.resume(null)
+          return@suspendCancellableCoroutine
+        }
 
-private suspend fun currentLocation(
-  manager: LocationManager,
-  provider: String,
-): Location? = withTimeoutOrNull(10_000L) {
-  suspendCancellableCoroutine { continuation ->
-    if (Build.VERSION.SDK_INT < Build.VERSION_CODES.R) {
-      continuation.resume(null)
-      return@suspendCancellableCoroutine
-    }
+        val cancellationSignal = CancellationSignal()
+        continuation.invokeOnCancellation { cancellationSignal.cancel() }
 
-    val cancellationSignal = CancellationSignal()
-    continuation.invokeOnCancellation { cancellationSignal.cancel() }
-
-    runCatching {
-      manager.getCurrentLocation(provider, cancellationSignal, context.mainExecutor) { location ->
-        if (continuation.isActive) {
-          continuation.resume(location)
+        runCatching {
+          manager.getCurrentLocation(provider, cancellationSignal, context.mainExecutor) { location ->
+            if (continuation.isActive) {
+              continuation.resume(location)
+            }
+          }
+        }.onFailure {
+          if (continuation.isActive) {
+            continuation.resume(null)
+          }
         }
       }
-    }.onFailure {
-      if (continuation.isActive) {
-        continuation.resume(null)
-      }
     }
-  }
-}
 
     private fun Location.toGeoPoint(): GeoPoint = GeoPoint(latitude = latitude, longitude = longitude)
   }

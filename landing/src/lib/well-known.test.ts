@@ -1,4 +1,4 @@
-import { describe, expect, it, vi } from 'vitest';
+import { afterEach, describe, expect, it, vi } from 'vitest';
 import {
   getAgentSkillsIndex,
   getApiCatalog,
@@ -7,6 +7,10 @@ import {
   hasOAuthDiscoveryConfig,
   getOAuthDiscoveryMetadata,
 } from './well-known';
+
+afterEach(() => {
+  vi.unstubAllEnvs();
+});
 
 describe('getApiCatalog', () => {
   it('publishes the public API, docs, and always-available agent metadata resources', () => {
@@ -37,8 +41,6 @@ describe('getApiCatalog', () => {
     expect(serviceMeta).toContain('https://biciradar.es/.well-known/oauth-authorization-server');
     expect(serviceMeta).toContain('https://biciradar.es/.well-known/openid-configuration');
     expect(serviceMeta).toContain('https://biciradar.es/.well-known/mcp/server-card.json');
-
-    vi.unstubAllEnvs();
   });
 });
 
@@ -69,8 +71,6 @@ describe('getOAuthDiscoveryMetadata', () => {
       'https://auth.biciradar.es',
     ]);
     expect(hasOAuthDiscoveryConfig()).toBe(true);
-
-    vi.unstubAllEnvs();
   });
 });
 
@@ -99,8 +99,6 @@ describe('getAgentSkillsIndex', () => {
       'oauth-discovery',
       'mcp-server-card',
     ]);
-
-    vi.unstubAllEnvs();
   });
 });
 
@@ -123,7 +121,5 @@ describe('getMcpServerCard', () => {
       endpoint: 'https://agents.biciradar.es/mcp',
     });
     expect(hasMcpServerCardConfig()).toBe(true);
-
-    vi.unstubAllEnvs();
   });
 });
