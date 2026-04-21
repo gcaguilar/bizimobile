@@ -118,13 +118,14 @@ internal val LocalIsDarkTheme = staticCompositionLocalOf { false }
 // Shape token for cards / station rows (platform-aware: iOS uses slightly smaller radius)
 internal val LocalBiziCardShape = staticCompositionLocalOf<Shape> { RoundedCornerShape(24.dp) }
 
-internal val BiziShapes = Shapes(
-  extraSmall = RoundedCornerShape(4.dp),
-  small = RoundedCornerShape(8.dp),
-  medium = RoundedCornerShape(12.dp),
-  large = RoundedCornerShape(16.dp),
-  extraLarge = RoundedCornerShape(28.dp),
-)
+internal val BiziShapes =
+  Shapes(
+    extraSmall = RoundedCornerShape(4.dp),
+    small = RoundedCornerShape(8.dp),
+    medium = RoundedCornerShape(12.dp),
+    large = RoundedCornerShape(16.dp),
+    extraLarge = RoundedCornerShape(28.dp),
+  )
 
 internal enum class BiziWindowLayout {
   Compact,

@@ -6,6 +6,7 @@ object AndroidStationMapRendererBridge {
   private const val PROVIDER_CLASS = "com.gcaguilar.biciradar.PlaystoreAndroidStationMapRendererProvider"
 
   @Volatile private var resolved = false
+
   @Volatile private var cached: AndroidStationMapRenderer? = null
 
   fun load(): AndroidStationMapRenderer? {

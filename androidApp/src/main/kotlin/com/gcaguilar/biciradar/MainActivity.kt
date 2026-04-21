@@ -12,12 +12,13 @@ import androidx.compose.runtime.CompositionLocalProvider
 import androidx.compose.runtime.getValue
 import androidx.compose.runtime.mutableIntStateOf
 import androidx.compose.runtime.mutableStateOf
+import androidx.compose.runtime.remember
 import androidx.compose.runtime.setValue
 import androidx.core.content.ContextCompat
 import androidx.core.splashscreen.SplashScreen.Companion.installSplashScreen
 import com.gcaguilar.biciradar.core.SharedGraph
-import com.gcaguilar.biciradar.mobileui.LocalAndroidStationMapRenderer
 import com.gcaguilar.biciradar.mobileui.BiziMobileApp
+import com.gcaguilar.biciradar.mobileui.LocalAndroidStationMapRenderer
 import com.gcaguilar.biciradar.mobileui.navigation.AssistantLaunchRequest
 import com.gcaguilar.biciradar.mobileui.navigation.MobileLaunchRequest
 import kotlinx.coroutines.CoroutineScope
@@ -114,8 +115,9 @@ class MainActivity : ComponentActivity() {
     AndroidAssistantShortcuts.reportUsed(this, launchRequest, assistantLaunchRequest)
 
     setContent {
+      val stationMapRenderer = remember { AndroidStationMapRendererBridge.load() }
       CompositionLocalProvider(
-        LocalAndroidStationMapRenderer provides AndroidStationMapRendererBridge.load(),
+        LocalAndroidStationMapRenderer provides stationMapRenderer,
       ) {
         BiziMobileApp(
           platformBindings = platformBindings,

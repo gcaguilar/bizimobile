@@ -6,11 +6,9 @@ import android.app.Activity
 import android.app.NotificationChannel
 import android.app.NotificationManager
 import android.content.Context
-import android.content.Intent
 import android.content.pm.PackageManager
 import android.location.Location
 import android.location.LocationManager
-import android.net.Uri
 import android.os.Build
 import android.os.CancellationSignal
 import androidx.core.app.NotificationCompat
@@ -23,7 +21,6 @@ import com.gcaguilar.biciradar.core.BiziHttpClientFactory
 import com.gcaguilar.biciradar.core.CrashlyticsReporter
 import com.gcaguilar.biciradar.core.DatabaseFactory
 import com.gcaguilar.biciradar.core.DefaultAssistantIntentResolver
-import com.gcaguilar.biciradar.core.EmbeddedMapProvider
 import com.gcaguilar.biciradar.core.ExternalLinks
 import com.gcaguilar.biciradar.core.FavoritesSyncSnapshot
 import com.gcaguilar.biciradar.core.FdroidCrashlyticsReporter
@@ -34,13 +31,11 @@ import com.gcaguilar.biciradar.core.LocationProvider
 import com.gcaguilar.biciradar.core.LogLevel
 import com.gcaguilar.biciradar.core.Logger
 import com.gcaguilar.biciradar.core.MapSupport
-import com.gcaguilar.biciradar.core.MapSupportStatus
 import com.gcaguilar.biciradar.core.PermissionPrompter
 import com.gcaguilar.biciradar.core.PlatformBindings
 import com.gcaguilar.biciradar.core.ReviewPrompter
 import com.gcaguilar.biciradar.core.RouteLauncher
 import com.gcaguilar.biciradar.core.SharedGraph
-import com.gcaguilar.biciradar.core.Station
 import com.gcaguilar.biciradar.core.StorageDirectoryProvider
 import com.gcaguilar.biciradar.core.WatchSyncBridge
 import com.gcaguilar.biciradar.core.crypto.SecureKeyStore
@@ -181,48 +176,6 @@ class AndroidPlatformBindings(
     override val rootPath: String = "${context.filesDir.absolutePath}/bizi"
   }
 
-  private class AndroidRouteLauncher(
-    private val context: Context,
-  ) : RouteLauncher {
-    // This will be overridden by FdroidRouteLauncher in the actual implementation
-    override fun launch(station: Station) {
-      // Fallback to geo URI
-      val fallbackUri = Uri.parse("geo:${station.location.latitude},${station.location.longitude}?q=${Uri.encode(station.name)}")
-      val intent = Intent(Intent.ACTION_VIEW, fallbackUri).apply {
-        addFlags(Intent.FLAG_ACTIVITY_NEW_TASK)
-      }
-      context.startActivity(intent)
-    }
-
-    override fun launchWalkToLocation(destination: GeoPoint) {
-      val fallbackUri = Uri.parse("geo:${destination.latitude},${destination.longitude}")
-      val intent = Intent(Intent.ACTION_VIEW, fallbackUri).apply {
-        addFlags(Intent.FLAG_ACTIVITY_NEW_TASK)
-      }
-      context.startActivity(intent)
-    }
-
-    override fun launchBikeToLocation(destination: GeoPoint) {
-      val fallbackUri = Uri.parse("geo:${destination.latitude},${destination.longitude}")
-      val intent = Intent(Intent.ACTION_VIEW, fallbackUri).apply {
-        addFlags(Intent.FLAG_ACTIVITY_NEW_TASK)
-      }
-      context.startActivity(intent)
-    }
-  }
-
-  private class AndroidMapSupport(
-    private val context: Context,
-  ) : MapSupport {
-    override fun currentStatus(): MapSupportStatus {
-      return MapSupportStatus(
-        embeddedProvider = EmbeddedMapProvider.None,
-        googleMapsSdkLinked = false,
-        googleMapsApiKeyConfigured = false,
-      )
-    }
-  }
-
   private class AndroidLocationProvider(
     private val context: Context,
   ) : LocationProvider {
@@ -277,11 +230,6 @@ class AndroidPlatformBindings(
       provider: String,
     ): Location? = withTimeoutOrNull(10_000L) {
       suspendCancellableCoroutine { continuation ->
-        if (Build.VERSION.SDK_INT < Build.VERSION_CODES.R) {
-          continuation.resume(null)
-          return@suspendCancellableCoroutine
-        }
-
         val cancellationSignal = CancellationSignal()
         continuation.invokeOnCancellation { cancellationSignal.cancel() }
 

@@ -1,10 +1,10 @@
-import java.util.Properties
-import org.gradle.language.base.plugins.LifecycleBasePlugin
 import org.gradle.api.DefaultTask
 import org.gradle.api.provider.ListProperty
 import org.gradle.api.provider.Property
 import org.gradle.api.tasks.Input
 import org.gradle.api.tasks.TaskAction
+import org.gradle.language.base.plugins.LifecycleBasePlugin
+import java.util.Properties
 
 plugins {
   alias(libs.plugins.android.application)

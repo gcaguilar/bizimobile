@@ -10,6 +10,7 @@ import androidx.compose.foundation.layout.Row
 import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.padding
+import androidx.compose.foundation.layout.weight
 import androidx.compose.foundation.lazy.LazyColumn
 import androidx.compose.foundation.lazy.items
 import androidx.compose.foundation.shape.CircleShape
@@ -30,9 +31,9 @@ import com.gcaguilar.biciradar.core.GeoPoint
 import com.gcaguilar.biciradar.core.Station
 import com.gcaguilar.biciradar.mobile_ui.generated.resources.Res
 import com.gcaguilar.biciradar.mobile_ui.generated.resources.desktopMapCurrentLocation
+import com.gcaguilar.biciradar.mobile_ui.generated.resources.desktopMapPickerHint
 import com.gcaguilar.biciradar.mobile_ui.generated.resources.desktopMapPlaceholderBody
 import com.gcaguilar.biciradar.mobile_ui.generated.resources.desktopMapPlaceholderTitle
-import com.gcaguilar.biciradar.mobile_ui.generated.resources.desktopMapPickerHint
 import com.gcaguilar.biciradar.mobile_ui.generated.resources.desktopMapSelectedLocation
 import com.gcaguilar.biciradar.mobile_ui.generated.resources.mapNoStations
 import org.jetbrains.compose.resources.stringResource
@@ -191,10 +192,9 @@ internal actual fun PlatformStationMap(
                 horizontalArrangement = Arrangement.spacedBy(12.dp),
                 verticalAlignment = Alignment.CenterVertically,
               ) {
-import androidx.compose.foundation.layout.fillMaxWidth
-import androidx.compose.foundation.layout.padding
-import androidx.compose.foundation.layout.weight
-import androidx.compose.foundation.lazy.LazyColumn
+                Column(
+                  modifier = Modifier.weight(1f),
+                  verticalArrangement = Arrangement.spacedBy(2.dp),
                 ) {
                   Text(
                     text = station.name,

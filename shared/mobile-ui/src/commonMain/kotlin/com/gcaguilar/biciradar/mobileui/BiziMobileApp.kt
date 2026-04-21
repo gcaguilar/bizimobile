@@ -146,7 +146,7 @@ fun BiziMobileApp(
       else ->
         when (mapSupportStatus.embeddedProvider) {
           EmbeddedMapProvider.GoogleMaps -> mapSupportStatus.isGoogleMapsReady()
-          EmbeddedMapProvider.None -> mapSupportStatus.isGoogleMapsReady()
+          EmbeddedMapProvider.None -> false
           else -> true
         }
     }

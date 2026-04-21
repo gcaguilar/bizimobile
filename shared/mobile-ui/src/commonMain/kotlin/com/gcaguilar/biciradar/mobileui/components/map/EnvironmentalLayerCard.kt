@@ -135,14 +135,24 @@ private fun EnvironmentalLegendRow(layer: MapEnvironmentalLayer) {
     verticalAlignment = Alignment.CenterVertically,
   ) {
     val legendColors =
-    when (layer) {
-      MapEnvironmentalLayer.AirQuality -> listOf(BiziDataColors.AqiGood, BiziDataColors.AqiModerate, BiziDataColors.AqiBad)
-      MapEnvironmentalLayer.Pollen -> listOf(BiziDataColors.PollenLow, BiziDataColors.PollenMedium, BiziDataColors.PollenHigh)
-    }
-  legendColors.forEachIndexed { index, color ->
+      when (layer) {
+        MapEnvironmentalLayer.AirQuality ->
+          listOf(
+            BiziDataColors.AqiGood,
+            BiziDataColors.AqiModerate,
+            BiziDataColors.AqiBad,
+          )
+        MapEnvironmentalLayer.Pollen ->
+          listOf(
+            BiziDataColors.PollenLow,
+            BiziDataColors.PollenMedium,
+            BiziDataColors.PollenHigh,
+          )
+      }
+    legendColors.zip(labels).forEach { (color, label) ->
       Row(horizontalArrangement = Arrangement.spacedBy(4.dp), verticalAlignment = Alignment.CenterVertically) {
         MapColorDot(color = color)
-        Text(labels[index], style = MaterialTheme.typography.labelSmall, color = c.muted)
+        Text(label, style = MaterialTheme.typography.labelSmall, color = c.muted)
       }
     }
   }

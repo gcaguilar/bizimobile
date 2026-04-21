@@ -209,9 +209,6 @@ export function getApiCatalog(site?: URL | string, basePath = '/') {
   };
 }
 
-export function getAgentSkillsIndex(site?: URL | string, basePath = '/') {
-  const siteUrl = resolveSiteUrl(site);
-  const rootUrl = absolutePageUrl('/', siteUrl, basePath);
 type AgentSkill = {
   id: string;
   title: string;

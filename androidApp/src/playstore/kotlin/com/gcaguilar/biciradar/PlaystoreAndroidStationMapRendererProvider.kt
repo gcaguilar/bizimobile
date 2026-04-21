@@ -4,6 +4,7 @@ import androidx.compose.runtime.Composable
 import androidx.compose.runtime.LaunchedEffect
 import androidx.compose.runtime.getValue
 import androidx.compose.runtime.key
+import androidx.compose.runtime.mutableIntStateOf
 import androidx.compose.runtime.mutableStateOf
 import androidx.compose.runtime.remember
 import androidx.compose.runtime.setValue
@@ -57,6 +58,7 @@ class PlaystoreAndroidStationMapRendererProvider : AndroidStationMapRenderer {
         )
       }
     var hasZoomed by remember { mutableStateOf(false) }
+    var lastHandledRecenterToken by remember { mutableIntStateOf(0) }
 
     LaunchedEffect(userLocation, stations) {
       if (hasZoomed) return@LaunchedEffect
@@ -69,14 +71,16 @@ class PlaystoreAndroidStationMapRendererProvider : AndroidStationMapRenderer {
       hasZoomed = true
     }
 
-    LaunchedEffect(recenterRequestToken) {
+    LaunchedEffect(recenterRequestToken, userLocation, stations) {
       if (recenterRequestToken == 0) return@LaunchedEffect
+      if (recenterRequestToken == lastHandledRecenterToken) return@LaunchedEffect
       val focusPoint = userLocation ?: stations.firstOrNull()?.location ?: return@LaunchedEffect
       cameraPositionState.position =
         CameraPosition.fromLatLngZoom(
           LatLng(focusPoint.latitude, focusPoint.longitude),
           if (userLocation != null) 15f else 13f,
         )
+      lastHandledRecenterToken = recenterRequestToken
     }
 
     GoogleMap(
@@ -94,11 +98,16 @@ class PlaystoreAndroidStationMapRendererProvider : AndroidStationMapRenderer {
       environmentalOverlay?.zones?.forEach { zone ->
         val tone =
           when {
-            environmentalOverlay.layer == EnvironmentalOverlayLayer.AirQuality && zone.value <= 50 -> BiziDataColors.AqiGood
-            environmentalOverlay.layer == EnvironmentalOverlayLayer.AirQuality && zone.value <= 100 -> BiziDataColors.AqiModerate
-            environmentalOverlay.layer == EnvironmentalOverlayLayer.AirQuality -> BiziDataColors.AqiBad
-            environmentalOverlay.layer == EnvironmentalOverlayLayer.Pollen && zone.value <= 10 -> BiziDataColors.PollenLow
-            environmentalOverlay.layer == EnvironmentalOverlayLayer.Pollen && zone.value <= 30 -> BiziDataColors.PollenMedium
+            environmentalOverlay.layer == EnvironmentalOverlayLayer.AirQuality &&
+              zone.value <= 50 -> BiziDataColors.AqiGood
+            environmentalOverlay.layer == EnvironmentalOverlayLayer.AirQuality &&
+              zone.value <= 100 -> BiziDataColors.AqiModerate
+            environmentalOverlay.layer == EnvironmentalOverlayLayer.AirQuality ->
+              BiziDataColors.AqiBad
+            environmentalOverlay.layer == EnvironmentalOverlayLayer.Pollen &&
+              zone.value <= 10 -> BiziDataColors.PollenLow
+            environmentalOverlay.layer == EnvironmentalOverlayLayer.Pollen &&
+              zone.value <= 30 -> BiziDataColors.PollenMedium
             else -> BiziDataColors.PollenHigh
           }
         Circle(
@@ -116,21 +125,21 @@ class PlaystoreAndroidStationMapRendererProvider : AndroidStationMapRenderer {
             remember(station.location.latitude, station.location.longitude) {
               MarkerState(position = LatLng(station.location.latitude, station.location.longitude))
             }
-        MarkerInfoWindowContent(
-          state = markerState,
-          title = station.name,
-          snippet = stationSnippet(station),
+          MarkerInfoWindowContent(
+            state = markerState,
+            title = station.name,
+            snippet = stationSnippet(station),
             icon =
               BitmapDescriptorFactory.defaultMarker(
                 stationMarkerHue(station, station.id == highlightedStationId),
               ),
-          onClick = {
-            onStationSelected(station)
-            false
-          },
-        ) {}
+            onClick = {
+              onStationSelected(station)
+              false
+            },
+          ) {}
+        }
       }
-    }
       if (pinLocation != null) {
         key("destination-pin") {
           MarkerInfoWindowContent(
