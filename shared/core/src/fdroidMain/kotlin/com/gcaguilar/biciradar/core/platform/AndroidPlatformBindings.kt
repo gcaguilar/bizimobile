@@ -271,31 +271,34 @@ class AndroidPlatformBindings(
         .mapNotNull { provider -> runCatching { manager.getLastKnownLocation(provider) }.getOrNull() }
         .maxByOrNull(Location::getTime)
 
-    private suspend fun currentLocation(
-      manager: LocationManager,
-      provider: String,
-    ): Location? =
-      suspendCancellableCoroutine { continuation ->
-        if (Build.VERSION.SDK_INT < Build.VERSION_CODES.R) {
-          continuation.resume(null)
-          return@suspendCancellableCoroutine
-        }
+import kotlinx.coroutines.withTimeoutOrNull
 
-        val cancellationSignal = CancellationSignal()
-        continuation.invokeOnCancellation { cancellationSignal.cancel() }
+private suspend fun currentLocation(
+  manager: LocationManager,
+  provider: String,
+): Location? = withTimeoutOrNull(10_000L) {
+  suspendCancellableCoroutine { continuation ->
+    if (Build.VERSION.SDK_INT < Build.VERSION_CODES.R) {
+      continuation.resume(null)
+      return@suspendCancellableCoroutine
+    }
 
-        runCatching {
-          manager.getCurrentLocation(provider, cancellationSignal, context.mainExecutor) { location ->
-            if (continuation.isActive) {
-              continuation.resume(location)
-            }
-          }
-        }.onFailure {
-          if (continuation.isActive) {
-            continuation.resume(null)
-          }
+    val cancellationSignal = CancellationSignal()
+    continuation.invokeOnCancellation { cancellationSignal.cancel() }
+
+    runCatching {
+      manager.getCurrentLocation(provider, cancellationSignal, context.mainExecutor) { location ->
+        if (continuation.isActive) {
+          continuation.resume(location)
         }
       }
+    }.onFailure {
+      if (continuation.isActive) {
+        continuation.resume(null)
+      }
+    }
+  }
+}
 
     private fun Location.toGeoPoint(): GeoPoint = GeoPoint(latitude = latitude, longitude = longitude)
   }
