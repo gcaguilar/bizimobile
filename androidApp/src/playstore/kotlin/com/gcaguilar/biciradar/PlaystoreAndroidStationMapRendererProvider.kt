@@ -8,10 +8,10 @@ import androidx.compose.runtime.mutableStateOf
 import androidx.compose.runtime.remember
 import androidx.compose.runtime.setValue
 import androidx.compose.ui.Modifier
-import androidx.compose.ui.graphics.Color
 import com.gcaguilar.biciradar.core.GeoPoint
 import com.gcaguilar.biciradar.core.Station
 import com.gcaguilar.biciradar.mobileui.AndroidStationMapRenderer
+import com.gcaguilar.biciradar.mobileui.BiziDataColors
 import com.gcaguilar.biciradar.mobileui.EnvironmentalOverlayData
 import com.gcaguilar.biciradar.mobileui.EnvironmentalOverlayLayer
 import com.google.android.gms.maps.model.BitmapDescriptorFactory
@@ -94,12 +94,12 @@ class PlaystoreAndroidStationMapRendererProvider : AndroidStationMapRenderer {
       environmentalOverlay?.zones?.forEach { zone ->
         val tone =
           when {
-            environmentalOverlay.layer == EnvironmentalOverlayLayer.AirQuality && zone.value <= 50 -> Color(0xFF2E7D32)
-            environmentalOverlay.layer == EnvironmentalOverlayLayer.AirQuality && zone.value <= 100 -> Color(0xFFEF6C00)
-            environmentalOverlay.layer == EnvironmentalOverlayLayer.AirQuality -> Color(0xFFC62828)
-            environmentalOverlay.layer == EnvironmentalOverlayLayer.Pollen && zone.value <= 10 -> Color(0xFF2E7D32)
-            environmentalOverlay.layer == EnvironmentalOverlayLayer.Pollen && zone.value <= 30 -> Color(0xFFEF6C00)
-            else -> Color(0xFFC62828)
+            environmentalOverlay.layer == EnvironmentalOverlayLayer.AirQuality && zone.value <= 50 -> BiziDataColors.AqiGood
+            environmentalOverlay.layer == EnvironmentalOverlayLayer.AirQuality && zone.value <= 100 -> BiziDataColors.AqiModerate
+            environmentalOverlay.layer == EnvironmentalOverlayLayer.AirQuality -> BiziDataColors.AqiBad
+            environmentalOverlay.layer == EnvironmentalOverlayLayer.Pollen && zone.value <= 10 -> BiziDataColors.PollenLow
+            environmentalOverlay.layer == EnvironmentalOverlayLayer.Pollen && zone.value <= 30 -> BiziDataColors.PollenMedium
+            else -> BiziDataColors.PollenHigh
           }
         Circle(
           center = LatLng(zone.center.latitude, zone.center.longitude),
