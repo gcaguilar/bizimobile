@@ -144,8 +144,11 @@ fun BiziMobileApp(
         mapSupportStatus.googleMapsSdkLinked && canSelectGoogleMapsInIos
       mobilePlatform == MobileUiPlatform.IOS -> false
       else ->
-        mapSupportStatus.embeddedProvider != EmbeddedMapProvider.None ||
-          mapSupportStatus.isGoogleMapsReady()
+        when (mapSupportStatus.embeddedProvider) {
+          EmbeddedMapProvider.None -> mapSupportStatus.isGoogleMapsReady()
+          EmbeddedMapProvider.GoogleMaps -> mapSupportStatus.isGoogleMapsReady()
+          else -> true
+        }
     }
   CompositionLocalProvider(LocalMetroViewModelFactory provides resolvedGraph.metroViewModelFactory) {
     val appRootViewModel = metroViewModel<AppRootViewModel>(key = "app-root")
